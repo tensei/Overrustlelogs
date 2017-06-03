@@ -7,10 +7,11 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="900"
              d:DataContext="{d:DesignInstance {x:Type viewModel:UserLogViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -32,7 +33,7 @@
                           SelectedItem="{Binding SelectedChannel}"
                           materialDesign:HintAssist.Hint="Channel"
                           IsEditable="True"/>
-                <Button Grid.Column="4" Command="{Binding SubmitCommand}">Submit</Button>
+                <Button Grid.Column="4" Command="{Binding SubmitCommand}" Style="{DynamicResource MaterialDesignFlatButton}">Submit</Button>
                 <Grid Grid.Column="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -48,22 +49,42 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}" Width="32"
+                    <Button Grid.Column="1" Style="{DynamicResource MaterialDesignFlatButton}" Width="32" Padding="2" Margin="5,0"
                             Command="{Binding PrevMonthCommand}">
                         <materialDesign:PackIcon Kind="ArrowLeft"></materialDesign:PackIcon>
                     </Button>
-                    <Button Grid.Column="2" Style="{DynamicResource MaterialDesignToolButton}" Width="32"
+                    <Button Grid.Column="2" Style="{DynamicResource MaterialDesignFlatButton}" Width="32" Padding="2"
                             Command="{Binding NextMonthCommand}">
                         <materialDesign:PackIcon Kind="ArrowRight"></materialDesign:PackIcon>
                     </Button>
                 </Grid>
             </Grid>
         </materialDesign:ColorZone>
-        <TextBox Grid.Row="1" Text="{Binding SelectedMonth.Text}" FontSize="16" TextWrapping="Wrap"
+        <Grid Grid.Row="1" Margin="10,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Style="{DynamicResource MaterialDesignFlatButton}"
+                    Command="{Binding SelectedMonth.GetLogCommand}">
+                <materialDesign:PackIcon Kind="Refresh"/>
+            </Button>
+            <Button Grid.Column="2" Style="{DynamicResource MaterialDesignFlatButton}"
+                    Click="DownArrow_OnClick">
+                <materialDesign:PackIcon Kind="ArrowDown"/>
+            </Button>
+            <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}"
+                    Click="UpArrow_OnClick">
+                <materialDesign:PackIcon Kind="ArrowUp"/>
+            </Button>
+        </Grid>
+        <TextBox x:Name="TextLog" Grid.Row="2" Text="{Binding SelectedMonth.Text}" FontSize="16" TextWrapping="Wrap"
                  IsReadOnly="True" Padding="10"
                  VerticalScrollBarVisibility="Auto"
                  materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
-        <Button Grid.Row="1" Style="{DynamicResource MaterialDesignFlatButton}"
+        <Button Grid.Row="2" Style="{DynamicResource MaterialDesignFlatButton}"
                 Command="{Binding SelectedMonth.GetLogCommand}" ToolTip="Load" Height="100" Width="100"
                 Padding="2"
                 Visibility="{Binding SelectedMonth.GetLogButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">

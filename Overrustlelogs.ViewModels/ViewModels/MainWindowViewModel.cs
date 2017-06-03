@@ -13,6 +13,8 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public event PropertyChangedEventHandler PropertyChanged;
         public MainWindowViewModel(ViewModelFactory viewModelFactory) {
             SwitchViewCommand = new ActionCommand(i => SwitchViewTo((string) i));
+            ForwardCommand = new ActionCommand(Forward);
+            BackCommand = new ActionCommand(Back);
             _viewModelFactory = viewModelFactory;
             ChannelsDataContext = _viewModelFactory.CreateChannelsViewModel;
             LogsDataContext = _viewModelFactory.CreateLogsViewModel();
@@ -21,6 +23,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         }
         public int ViewIndex { get; set; }
         public string Title { get; set; } = "Overrustle Logs";
+        public string CurrentUrl { get; set; } = "https://overrustlelogs.net";
 
         public ChannelsViewModel ChannelsDataContext { get; set; }
         public MonthsViewModel MonthsDataContext { get; set; }
@@ -28,8 +31,43 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public UserLogViewModel LogsDataContext { get; set; }
 
         public ICommand SwitchViewCommand { get; }
+
+        public ICommand BackCommand { get; }
+        public ICommand ForwardCommand { get; }
+
+        private void Back() {
+            var currentIndex = ViewIndex;
+            switch (currentIndex) {
+                case 1:
+                    ViewIndex--;
+                    ChangeTitle();
+                    break;
+                case 2:
+                    ViewIndex--;
+                    ChangeTitle(CurrentState.Channel.Name);
+                    break;
+            }
+        }
+        private void Forward() {
+            var currentIndex = ViewIndex;
+            switch (currentIndex) {
+                case 0:
+                    ViewIndex++;
+                    ChangeTitle(CurrentState.Channel.Name);
+                    break;
+                case 1:
+                    if (CurrentState.Month == null) {
+                        break;
+                    }
+                    ViewIndex++;
+                    ChangeTitle(CurrentState.Channel.Name, CurrentState.Month.Name);
+                    break;
+            }
+        }
+
         private void ShowMonths(IChannelModel channel) {
             CurrentState.Channel = channel;
+            CurrentState.Month = null;
             MonthsDataContext = _viewModelFactory.CreateMonthsViewModel(ChangeTitle);
             ViewIndex = 1;
         }
@@ -43,25 +81,22 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             var ind = int.Parse(index);
             ViewIndex = ind;
             Title = "Overrustle Logs";
+            if (ind == 0) {
+                ChangeTitle();
+            }
         }
 
-        private void ChangeTitle(string channel, string month = null, string day = null, string user = null) {
-            const string title = "Overrustle Logs";
-            if (user != null) {
-                Title = $"{title} - /{channel} chatlog/{month}/userlogs/{user}/";
-                return;
-            }
-            if (day != null) {
-                Title = $"{title} - /{channel} chatlog/{month}/{day}/";
-                return;
-            }
+        private void ChangeTitle(string channel = null, string month = null) {
+            const string urlBase = "https://overrustlelogs.net";
             if (month != null) {
-                Title = $"{title} - /{channel} chatlog/{month}/";
+                CurrentUrl = $"{urlBase}/{channel} chatlog/{month}/";
                 return;
             }
             if (channel != null) {
-                Title = $"{title} - /{channel} chatlog/";
+                CurrentUrl = $"{urlBase}/{channel} chatlog/";
+                return;
             }
+            CurrentUrl = urlBase;
         }
     }
 }

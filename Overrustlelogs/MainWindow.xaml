@@ -14,15 +14,26 @@
         Height="650" Width="925" BorderBrush="Black" NonActiveBorderBrush="Black" WindowTitleBrush="#FFC33E00"
         BorderThickness="1" NonActiveWindowTitleBrush="#FFC33E00"
         d:DataContext="{d:DesignInstance {x:Type viewModel:MainWindowViewModel}, IsDesignTimeCreatable=False}">
+    <controls:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands>
+            <Button Command="{Binding BackCommand}">
+                <materialDesign:PackIcon Kind="ArrowLeft"/>
+            </Button>
+            <Button Command="{Binding ForwardCommand}">
+                <materialDesign:PackIcon Kind="ArrowRight"/>
+            </Button>
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button >
+            <Button Content="{Binding CurrentUrl}" Click="CurrentUrl_OnClick"/>
+            <Button Click="Changelog_OnClick">
                 Changelog
             </Button>
-            <Button >
+            <Button>
                 Contact
             </Button>
-            <Button>
+            <Button Click="Donate_OnClick">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconFontAwesome VerticalAlignment="Center" Kind="Paypal"/>
                     <TextBlock>Donate</TextBlock>
@@ -32,48 +43,50 @@
     </controls:MetroWindow.RightWindowCommands>
     <materialDesign:DialogHost>
         <Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="37"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <materialDesign:ColorZone Mode="Standard" VerticalAlignment="Stretch">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="37"/>
-                            <RowDefinition Height="37"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="37"/>
-                        </Grid.RowDefinitions>
-                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="37"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <materialDesign:ColorZone Mode="Standard" VerticalAlignment="Stretch" Grid.RowSpan="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="37"/>
+                        <RowDefinition Height="37"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="37"/>
+                    </Grid.RowDefinitions>
+                    <Button Style="{DynamicResource MaterialDesignToolButton}"
                                 materialDesign:RippleAssist.ClipToBounds="True"
                                 materialDesign:RippleAssist.IsCentered="True"
                                 Height="37" Width="37" ToolTip="Home"
                                 Command="{Binding SwitchViewCommand}" CommandParameter="0">
-                            <materialDesign:PackIcon Kind="Home" Width="28" Height="28"/>
-                        </Button>
-                        <Button Grid.Row="1" Style="{DynamicResource MaterialDesignToolButton}"
+                        <materialDesign:PackIcon Kind="Home" Width="28" Height="28"/>
+                    </Button>
+                    <Button Grid.Row="1" Style="{DynamicResource MaterialDesignToolButton}"
                                 materialDesign:RippleAssist.ClipToBounds="True"
                                 materialDesign:RippleAssist.IsCentered="True"
                                 Height="37" Width="37" ToolTip="Userlogs"
                                 Command="{Binding SwitchViewCommand}" CommandParameter="3">
-                            <materialDesign:PackIcon Kind="Account" Width="28" Height="28"/>
-                        </Button>
-                        <Button Grid.Row="3" Style="{DynamicResource MaterialDesignToolButton}"
+                        <materialDesign:PackIcon Kind="Account" Width="28" Height="28"/>
+                    </Button>
+                    <Button Grid.Row="3" Style="{DynamicResource MaterialDesignToolButton}"
                                 materialDesign:RippleAssist.ClipToBounds="True"
                                 materialDesign:RippleAssist.IsCentered="True"
                                 Height="37" Width="37" Padding="2" ToolTip="Settings">
-                            <materialDesign:PackIcon Kind="Settings" Width="28" Height="28"/>
-                        </Button>
-                    </Grid>
-                </materialDesign:ColorZone>
-                <materialDesign:Transitioner Grid.Column="1" SelectedIndex="{Binding ViewIndex}">
-                    <views:ChannelsView DataContext="{Binding ChannelsDataContext}"/>
-                    <views:MonthsView DataContext="{Binding MonthsDataContext}"/>
-                    <views:DaysView DataContext="{Binding DaysDataContext}"/>
-                    <views:UserLogView DataContext="{Binding LogsDataContext}"/>
-                </materialDesign:Transitioner>
-            </Grid>
+                        <materialDesign:PackIcon Kind="Settings" Width="28" Height="28"/>
+                    </Button>
+                </Grid>
+            </materialDesign:ColorZone>
+            <materialDesign:Transitioner Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding ViewIndex}">
+                <views:ChannelsView DataContext="{Binding ChannelsDataContext}"/>
+                <views:MonthsView DataContext="{Binding MonthsDataContext}"/>
+                <views:DaysView DataContext="{Binding DaysDataContext}"/>
+                <views:UserLogView DataContext="{Binding LogsDataContext}"/>
+            </materialDesign:Transitioner>
         </Grid>
     </materialDesign:DialogHost>
 

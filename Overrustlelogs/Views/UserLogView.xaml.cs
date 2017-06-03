@@ -21,5 +21,13 @@ namespace Overrustlelogs.Views {
         public UserLogView() {
             InitializeComponent();
         }
+
+        private void DownArrow_OnClick(object sender, RoutedEventArgs e) {
+            TextLog.ScrollToEnd();
+        }
+
+        private void UpArrow_OnClick(object sender, RoutedEventArgs e) {
+            TextLog.ScrollToHome();
+        }
     }
 }

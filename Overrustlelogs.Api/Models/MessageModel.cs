@@ -27,9 +27,7 @@ namespace Overrustlelogs.Api.Models {
         public ICommand GetLogCommand { get; }
 
         private async Task GetLog() {
-            if (Text != null && Text == "Not Found") {
-                return;
-            }
+            Text = string.Empty;
             var text = await _apiLogs.GetLogString(_url);
             if (text == null) {
                 Text = "Error try again";

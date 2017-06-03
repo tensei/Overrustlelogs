@@ -16,15 +16,15 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         
 
         private readonly IApiMonths _apiMonths;
-        private readonly Action<string, string, string, string> _changeTitle;
+        private readonly Action<string, string> _changeTitle;
 
         public ICommand SwitchToDayCommand { get; }
         public ObservableCollection<IMonthModel> MonthsList { get; set; }
-        public MonthsViewModel(IApiMonths apiMonths, Action<string, string, string, string> changeTitle) {
+        public MonthsViewModel(IApiMonths apiMonths, Action<string, string> changeTitle) {
             SwitchToDayCommand = new ActionCommand(d => CurrentState.SwitchViewToDays((MonthModel) d));
             _apiMonths = apiMonths;
             _changeTitle = changeTitle;
-            _changeTitle(CurrentState.Channel.Name, null, null, null);
+            _changeTitle(CurrentState.Channel.Name, null);
             if (CurrentState.Channel.Months != null) {
                 MonthsList = CurrentState.Channel.Months;
                 return;

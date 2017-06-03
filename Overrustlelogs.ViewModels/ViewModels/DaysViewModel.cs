@@ -14,16 +14,16 @@ namespace Overrustlelogs.ViewModels.ViewModels {
     public class DaysViewModel: INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
         
-        private readonly Action<string, string, string, string> _changeTitle;
+        private readonly Action<string, string> _changeTitle;
         private readonly IApiDays _apiDays;
 
         public ICommand SwitchToLogCommand { get; }
         public ObservableCollection<IDayModel> DaysList { get; set; }
-        public DaysViewModel(Action<string, string, string, string> changeTitle, IApiDays apiDays) {
+        public DaysViewModel(Action<string, string> changeTitle, IApiDays apiDays) {
             SwitchToLogCommand = new ActionCommand(l => OpenLog((DayModel)l));
             _changeTitle = changeTitle;
             _apiDays = apiDays;
-            _changeTitle(CurrentState.Channel.Name, CurrentState.Month.Name, null, null);
+            _changeTitle(CurrentState.Channel.Name, CurrentState.Month.Name);
             if (CurrentState.Month.Days != null) {
                 DaysList = CurrentState.Month.Days;
                 return;

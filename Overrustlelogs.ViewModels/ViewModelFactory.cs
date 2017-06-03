@@ -22,8 +22,8 @@ namespace Overrustlelogs.ViewModels {
 
         public MainWindowViewModel CreateMainWindowViewModel => new MainWindowViewModel(this);
         public ChannelsViewModel CreateChannelsViewModel => new ChannelsViewModel(_apiChannels);
-        public MonthsViewModel CreateMonthsViewModel(Action<string, string, string, string> changeTitle) => new MonthsViewModel(_apiMonths, changeTitle);
-        public DaysViewModel CreateDaysViewModel( Action<string, string, string, string> changeTitle) => new DaysViewModel(changeTitle, _apiDays);
+        public MonthsViewModel CreateMonthsViewModel(Action<string, string> changeTitle) => new MonthsViewModel(_apiMonths, changeTitle);
+        public DaysViewModel CreateDaysViewModel( Action<string, string> changeTitle) => new DaysViewModel(changeTitle, _apiDays);
         public UserLogViewModel CreateLogsViewModel() => new UserLogViewModel(_apiLogs, _apiChannels);
     }
 }
