@@ -12,17 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Overrustlelogs.ViewModels;
-using Overrustlelogs.ViewModels.ViewModels;
 
-namespace Overrustlelogs {
+namespace Overrustlelogs.Views {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for DaysView.xaml
     /// </summary>
-    public partial class MainWindow {
-        public MainWindow(ViewModelFactory viewModelFactory) {
+    public partial class DaysView : UserControl {
+        public DaysView() {
             InitializeComponent();
-            DataContext = viewModelFactory.CreateMainWindowViewModel;
         }
     }
 }

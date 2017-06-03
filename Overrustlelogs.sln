@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overrustlelogs", "Overrustlelogs\Overrustlelogs.csproj", "{3AEA3E56-8915-4750-8990-40F247210170}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overrustlelogs.ViewModels", "Overrustlelogs.ViewModels\Overrustlelogs.ViewModels.csproj", "{30FD16CC-8D82-4BD5-AC13-D3E92FE6843E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overrustlelogs.Api", "Overrustlelogs.Api\Overrustlelogs.Api.csproj", "{18932596-5855-467A-802B-83E040DD2E0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{3AEA3E56-8915-4750-8990-40F247210170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AEA3E56-8915-4750-8990-40F247210170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AEA3E56-8915-4750-8990-40F247210170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30FD16CC-8D82-4BD5-AC13-D3E92FE6843E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30FD16CC-8D82-4BD5-AC13-D3E92FE6843E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30FD16CC-8D82-4BD5-AC13-D3E92FE6843E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30FD16CC-8D82-4BD5-AC13-D3E92FE6843E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18932596-5855-467A-802B-83E040DD2E0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18932596-5855-467A-802B-83E040DD2E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18932596-5855-467A-802B-83E040DD2E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18932596-5855-467A-802B-83E040DD2E0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
