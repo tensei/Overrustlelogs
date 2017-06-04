@@ -13,17 +13,29 @@ using Overrustlelogs.Api.Models;
 namespace Overrustlelogs.ViewModels.ViewModels {
     public class DaysViewModel: INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
-        
-        private readonly Action<string, string> _changeTitle;
-        private readonly IApiDays _apiDays;
 
-        public ICommand SwitchToLogCommand { get; }
+        private readonly IApiDays _apiDays;
+        private IDayModel _selectedDay;
+        
+        public ICommand RefreshDaysCommand { get; }
         public ObservableCollection<IDayModel> DaysList { get; set; }
+
+        public IDayModel SelectedDay {
+            set {
+                if (value == null) {
+                    return;
+                }
+                OpenLog(value);
+                SelectedDayIndex = -1;
+            }
+        }
+
+        public int SelectedDayIndex { get; set; } = -1;
+
         public DaysViewModel(Action<string, string> changeTitle, IApiDays apiDays) {
-            SwitchToLogCommand = new ActionCommand(l => OpenLog((DayModel)l));
-            _changeTitle = changeTitle;
+            RefreshDaysCommand = new ActionCommand(async ()=> await GetDays());
             _apiDays = apiDays;
-            _changeTitle(CurrentState.Channel.Name, CurrentState.Month.Name);
+            changeTitle(CurrentState.Channel.Name, CurrentState.Month.Name);
             if (CurrentState.Month.Days != null) {
                 DaysList = CurrentState.Month.Days;
                 return;
@@ -34,10 +46,15 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         private async Task GetDays() {
             var days = await _apiDays.Get(CurrentState.Channel, CurrentState.Month);
             CurrentState.Month.Days = new ObservableCollection<IDayModel>(days);
+            CurrentState.Month.Days.Insert(0, new DayModel("userlogs", CurrentState.Month.Url+"/userlogs"));
             DaysList = CurrentState.Month.Days;
         }
 
         private void OpenLog(IDayModel day) {
+            if (day.Name == "userlogs") {
+                CurrentState.SwitchViewToUserlogs(CurrentState.Month);
+                return;
+            }
             try {
                 Process.Start(day.Url);
             }

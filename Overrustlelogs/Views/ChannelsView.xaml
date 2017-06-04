@@ -7,35 +7,54 @@
              xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="900"
              d:DataContext="{d:DesignInstance {x:Type viewModel:ChannelsViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding ChannelList}" HorizontalContentAlignment="Stretch">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Button Height="35" Padding="10,3" HorizontalContentAlignment="Left"
-                                    Style="{DynamicResource MaterialDesignFlatButton}"
-                                    Command="{Binding DataContext.SwitchToMonthCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ChannelsView}}}" CommandParameter="{Binding}">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center" Foreground="White"/>
-                                    <TextBlock FontSize="16" Foreground="White">
-                                        <Run Text="{Binding Name}"/>
-                                        <Run Text="chatlog"/>
-                                    </TextBlock>
-                                </StackPanel>
-                            </Button>
-                            <Separator Grid.Row="1" Height="1" Opacity=".2"></Separator>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,0,0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Style="{DynamicResource MaterialDesignFlatButton}"
+                    Command="{Binding RefreshChannelCommand}">
+                <materialDesign:PackIcon Kind="Refresh"/>
+            </Button>
+            <TextBox Grid.Column="1" Width="200" materialDesign:HintAssist.Hint="Filter"
+                      TextChanged="Filter_OnTextChanged" 
+                     VerticalAlignment="Center"/>
+            <TextBlock Margin="5,0" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right" Text="{Binding ChannelList.Count}"/>
+        </Grid>
+        <ListBox Grid.Row="1" x:Name="ChannelList" ItemsSource="{Binding ChannelList}" 
+                 HorizontalContentAlignment="Stretch" 
+                 VerticalContentAlignment="Stretch" SelectedItem="{Binding SelectedChannel}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Visibility}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                    <Grid VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center" Foreground="White"/>
+                            <TextBlock FontSize="16" Foreground="White">
+                                    <Run Text="{Binding Name}"/>
+                                    <Run Text="chatlog"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
     </Grid>
 </UserControl>

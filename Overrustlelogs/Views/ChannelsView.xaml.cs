@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Overrustlelogs.Api.Models;
 
 namespace Overrustlelogs.Views {
     /// <summary>
@@ -20,6 +21,20 @@ namespace Overrustlelogs.Views {
     public partial class ChannelsView : UserControl {
         public ChannelsView() {
             InitializeComponent();
+            ChannelList.SelectionChanged += (sender, args) => { ChannelList.UnselectAll(); };
+        }
+
+        private void Filter_OnTextChanged(object sender, TextChangedEventArgs e) {
+            var filterTextbox = (TextBox) sender;
+            var filter = filterTextbox.Text;
+            foreach (var channelListItem in ChannelList.Items) {
+                var item = (ChannelModel) channelListItem;
+                if (!item.Name.ToLower().Contains(filter.ToLower())) {
+                    item.Visibility = false;
+                    continue;
+                }
+                item.Visibility = true;
+            }
         }
     }
 }

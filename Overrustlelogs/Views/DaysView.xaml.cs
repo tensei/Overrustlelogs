@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Overrustlelogs.Api.Models;
 
 namespace Overrustlelogs.Views {
     /// <summary>
@@ -20,6 +21,20 @@ namespace Overrustlelogs.Views {
     public partial class DaysView : UserControl {
         public DaysView() {
             InitializeComponent();
+            DayList.SelectionChanged += (sender, args) => { DayList.UnselectAll(); };
+        }
+
+        private void Filter_OnTextChanged(object sender, TextChangedEventArgs e) {
+            var filterTextbox = (TextBox)sender;
+            var filter = filterTextbox.Text;
+            foreach (var dayListItem in DayList.Items) {
+                var item = (DayModel)dayListItem;
+                if (!item.Name.ToLower().Contains(filter.ToLower())) {
+                    item.Visibility = false;
+                    continue;
+                }
+                item.Visibility = true;
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Overrustlelogs.Api.Models {
     public class MessageModel : IMessageModel, INotifyPropertyChanged {
         private readonly IApiLogs _apiLogs;
         public string Text { get; set; }
+        public string[] UnEditedText { get; set; }
         public string Month { get; set; }
         private string _url { get; set; }
 
@@ -34,6 +35,7 @@ namespace Overrustlelogs.Api.Models {
                 return;
             }
             Text = text;
+            UnEditedText = text.Split(new []{'\n'}, StringSplitOptions.RemoveEmptyEntries);
             GetLogButtonVisibility = false;
         }
 

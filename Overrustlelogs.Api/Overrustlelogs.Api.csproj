@@ -59,6 +59,8 @@
     <Compile Include="ApiDays.cs" />
     <Compile Include="ApiLogs.cs" />
     <Compile Include="ApiMonths.cs" />
+    <Compile Include="ApiUserlogs.cs" />
+    <Compile Include="Interfaces\IApiUserlogs.cs" />
     <Compile Include="Interfaces\IApiLogs.cs" />
     <Compile Include="Interfaces\IApiDays.cs" />
     <Compile Include="Interfaces\IApiMonths.cs" />
@@ -70,8 +72,10 @@
     <Compile Include="Models\DayModel.cs" />
     <Compile Include="Interfaces\IDayModel.cs" />
     <Compile Include="Interfaces\IMessageModel.cs" />
+    <Compile Include="Interfaces\IUserModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\MonthModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

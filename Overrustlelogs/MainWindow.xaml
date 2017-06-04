@@ -70,7 +70,7 @@
                                 materialDesign:RippleAssist.ClipToBounds="True"
                                 materialDesign:RippleAssist.IsCentered="True"
                                 Height="37" Width="37" ToolTip="Userlogs"
-                                Command="{Binding SwitchViewCommand}" CommandParameter="3">
+                                Command="{Binding SwitchViewCommand}" CommandParameter="4">
                         <materialDesign:PackIcon Kind="Account" Width="28" Height="28"/>
                     </Button>
                     <Button Grid.Row="3" Style="{DynamicResource MaterialDesignToolButton}"
@@ -85,7 +85,8 @@
                 <views:ChannelsView DataContext="{Binding ChannelsDataContext}"/>
                 <views:MonthsView DataContext="{Binding MonthsDataContext}"/>
                 <views:DaysView DataContext="{Binding DaysDataContext}"/>
-                <views:UserLogView DataContext="{Binding LogsDataContext}"/>
+                <views:UserlogsView DataContext="{Binding UserlogsDataContext}"/>
+                <views:LogCollectionView DataContext="{Binding LogsDataContext}"/>
             </materialDesign:Transitioner>
         </Grid>
     </materialDesign:DialogHost>

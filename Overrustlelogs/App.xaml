@@ -70,6 +70,7 @@
             <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{DynamicResource Primary500}" Opacity="0.4" />
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:NotZeroToVisibilityConverter x:Key="NotZeroToVisibilityConverter" />
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

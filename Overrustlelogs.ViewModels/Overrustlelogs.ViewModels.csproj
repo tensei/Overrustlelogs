@@ -57,9 +57,10 @@
     <Compile Include="ViewModels\ActionCommand.cs" />
     <Compile Include="ViewModels\ChannelsViewModel.cs" />
     <Compile Include="ViewModels\DaysViewModel.cs" />
-    <Compile Include="ViewModels\UserLogViewModel.cs" />
+    <Compile Include="ViewModels\LogCollectionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MonthsViewModel.cs" />
+    <Compile Include="ViewModels\UserlogsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />

@@ -22,6 +22,7 @@ namespace Overrustlelogs {
             container.RegisterType<IApiMonths, ApiMonths>();
             container.RegisterType<IApiDays, ApiDays>();
             container.RegisterType<IApiLogs, ApiLogs>();
+            container.RegisterType<IApiUserlogs, ApiUserlogs>();
             container.RegisterType<ViewModelFactory>();
             container.RegisterType<MainWindow>();
             container.Resolve<MainWindow>().Show();
