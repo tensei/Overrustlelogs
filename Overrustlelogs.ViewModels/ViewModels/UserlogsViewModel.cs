@@ -22,10 +22,10 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public IUserModel SelectedUser {
             get => _selectedUser;
             set {
+                OpenLog(value);
                 if (value == null) {
                     return;
                 }
-                OpenLog(value);
                 _selectedUser = value;
             }
         }
@@ -53,8 +53,21 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             UsersList = CurrentState.Month.Users;
         }
 
+        private IUserModel lastuser;
+        private DateTime _lastclick;
         private void OpenLog(IUserModel user) {
+            var timediff = DateTime.Now - _lastclick;
+            if (timediff.Seconds < 1) {
+                return;
+            }
+            if (user == null) {
+                _lastclick = DateTime.Now;
+                Process.Start(lastuser.Url);
+                return;
+            }
             try {
+                lastuser = user;
+                _lastclick = DateTime.Now;
                 Process.Start(user.Url);
             } catch (Exception e) {
                 Console.WriteLine(e);

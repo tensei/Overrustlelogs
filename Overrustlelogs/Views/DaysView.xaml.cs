@@ -11,15 +11,9 @@ namespace Overrustlelogs.Views {
         public DaysView() {
             InitializeComponent();
             DayList.SelectionChanged += (sender, args) => { DayList.UnselectAll(); };
-            DayList.PreviewMouseDown += DayListOnPreviewMouseDown;
+            DayList.PreviewMouseRightButtonDown += (sender, args) => { args.Handled = true; };
         }
-
-        private void DayListOnPreviewMouseDown(object o, MouseButtonEventArgs mouseButtonEventArgs) {
-            if (mouseButtonEventArgs.RightButton == MouseButtonState.Pressed) {
-                DayList.UnselectAll();
-                mouseButtonEventArgs.Handled = true;
-            }
-        }
+        
 
         private void Filter_OnTextChanged(object sender, TextChangedEventArgs e) {
             var filterTextbox = (TextBox) sender;

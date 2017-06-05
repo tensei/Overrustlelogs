@@ -12,16 +12,9 @@ namespace Overrustlelogs.Views {
         public UserlogsView() {
             InitializeComponent();
             UserList.SelectionChanged += (sender, args) => { UserList.UnselectAll(); };
-            UserList.PreviewMouseDown += UserListOnPreviewMouseDown;
+            UserList.PreviewMouseRightButtonDown += (sender, args) => { args.Handled = true; };
         }
-
-        private void UserListOnPreviewMouseDown(object o, MouseButtonEventArgs mouseButtonEventArgs) {
-            if (mouseButtonEventArgs.RightButton == MouseButtonState.Pressed) {
-                UserList.UnselectAll();
-                mouseButtonEventArgs.Handled = true;
-            }
-        }
-
+        
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e) {
             if (e.Key != Key.Enter) {
                 return;

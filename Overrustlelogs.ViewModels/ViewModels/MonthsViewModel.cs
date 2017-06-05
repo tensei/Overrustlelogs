@@ -25,10 +25,10 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public IMonthModel SelectedMonth {
             get => _selectedMonth;
             set {
+                CurrentState.SwitchViewToDays(value);
                 if (value == null) {
                     return;
                 }
-                CurrentState.SwitchViewToDays(value);
                 _selectedMonth = value;
             }
         }

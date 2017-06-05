@@ -33,10 +33,10 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public IChannelModel SelectedChannel {
             get => _selectedChannel;
             set {
+                CurrentState.SwitchViewToMonth(value);
                 if (value == null) {
                     return;
                 }
-                CurrentState.SwitchViewToMonth(value);
                 _selectedChannel = value;
             }
         }

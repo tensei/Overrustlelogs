@@ -85,19 +85,25 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             }
         }
 
-        private void ShowMonths(IChannelModel channel) {
-            CurrentState.Channel = channel;
-            CurrentState.Month = null;
+        private void ShowMonths(IChannelModel channel = null) {
+            if (channel != null) {
+                CurrentState.Channel = channel;
+                CurrentState.Month = null;
+            }
             MonthsDataContext = _viewModelFactory.CreateMonthsViewModel(ChangeTitle);
             ViewIndex = 1;
         }
-        private void ShowDays(IMonthModel month) {
-            CurrentState.Month = month;
+        private void ShowDays(IMonthModel month = null) {
+            if (month != null) {
+                CurrentState.Month = month;
+            }
             DaysDataContext = _viewModelFactory.CreateDaysViewModel(ChangeTitle);
             ViewIndex = 2;
         }
-        private void ShowUserlogs(IMonthModel month) {
-            CurrentState.Month = month;
+        private void ShowUserlogs(IMonthModel month = null) {
+            if (month != null) {
+                CurrentState.Month = month;
+            }
             UserlogsDataContext = _viewModelFactory.CreateUserlogsViewModel(ChangeTitle);
             ViewIndex = 3;
         }

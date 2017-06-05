@@ -11,15 +11,9 @@ namespace Overrustlelogs.Views {
         public ChannelsView() {
             InitializeComponent();
             ChannelList.SelectionChanged += (sender, args) => { ChannelList.UnselectAll(); };
-            ChannelList.PreviewMouseDown += ChannelListOnPreviewMouseDown;
+            ChannelList.PreviewMouseRightButtonDown += (sender, args) => { args.Handled = true; };
         }
-
-        private void ChannelListOnPreviewMouseDown(object o, MouseButtonEventArgs mouseButtonEventArgs) {
-            if (mouseButtonEventArgs.RightButton == MouseButtonState.Pressed) {
-                ChannelList.UnselectAll();
-                mouseButtonEventArgs.Handled = true;
-            }
-        }
+        
 
         private void Filter_OnTextChanged(object sender, TextChangedEventArgs e) {
             var filterTextbox = (TextBox) sender;

@@ -11,16 +11,9 @@ namespace Overrustlelogs.Views {
         public MonthsView() {
             InitializeComponent();
             MonthList.SelectionChanged += (sender, args) => { MonthList.UnselectAll(); };
-            MonthList.PreviewMouseDown += MonthListOnPreviewMouseDown;
+            MonthList.PreviewMouseRightButtonDown += (sender, args) => { args.Handled = true; };
         }
-
-        private void MonthListOnPreviewMouseDown(object o, MouseButtonEventArgs mouseButtonEventArgs) {
-            if (mouseButtonEventArgs.RightButton == MouseButtonState.Pressed) {
-                MonthList.UnselectAll();
-                mouseButtonEventArgs.Handled = true;
-            }
-        }
-
+        
         private void Filter_OnTextChanged(object sender, TextChangedEventArgs e) {
             var filterTextbox = (TextBox) sender;
             var filter = filterTextbox.Text;
