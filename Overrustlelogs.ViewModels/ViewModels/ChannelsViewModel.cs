@@ -19,8 +19,12 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public ChannelsViewModel(IApiChannels channels) {
             RefreshChannelCommand = new ActionCommand(async () => await GetChannels());
             _channels = channels;
-            ChannelList = new ObservableCollection<ChannelModel>();
-            GetChannels().ConfigureAwait(false);
+            if (CurrentState.Channels == null) {
+                ChannelList = new ObservableCollection<ChannelModel>();
+                GetChannels().ConfigureAwait(false);
+                return;
+            }
+            ChannelList = new ObservableCollection<ChannelModel>(CurrentState.Channels);
         }
         public ObservableCollection<ChannelModel> ChannelList { get; set; }
         
@@ -33,15 +37,15 @@ namespace Overrustlelogs.ViewModels.ViewModels {
                     return;
                 }
                 CurrentState.SwitchViewToMonth(value);
+                _selectedChannel = value;
             }
         }
         
 
         private async Task GetChannels() {
             var channels = await _channels.Get();
-            channels.ForEach(ChannelList.Add);
-            CurrentState.Channels = channels;
             ChannelList = new ObservableCollection<ChannelModel>(channels);
+            CurrentState.Channels = channels;
             SelectedChannel = null;
         }
     }

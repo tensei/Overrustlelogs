@@ -1,32 +1,34 @@
 ﻿<controls:MetroWindow x:Class="Overrustlelogs.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Overrustlelogs"
-        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
-        xmlns:views="clr-namespace:Overrustlelogs.Views"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        mc:Ignorable="d"
-        SaveWindowPosition="True" Title="{Binding Title}" TitleCharacterCasing="Normal" TitleForeground="White"
-        Height="650" Width="925" BorderBrush="Black" NonActiveBorderBrush="Black" WindowTitleBrush="#FFC33E00"
-        BorderThickness="1" NonActiveWindowTitleBrush="#FFC33E00"
-        d:DataContext="{d:DesignInstance {x:Type viewModel:MainWindowViewModel}, IsDesignTimeCreatable=False}">
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:Overrustlelogs"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                      xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
+                      xmlns:views="clr-namespace:Overrustlelogs.Views"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      mc:Ignorable="d"
+                      SaveWindowPosition="True" Title="{Binding Title}" TitleCharacterCasing="Normal"
+                      TitleForeground="White"
+                      Height="650" Width="925" BorderBrush="Black" NonActiveBorderBrush="Black"
+                      WindowTitleBrush="#FFC33E00"
+                      BorderThickness="1" NonActiveWindowTitleBrush="#FFC33E00"
+                      d:DataContext="{d:DesignInstance {x:Type viewModel:MainWindowViewModel}, IsDesignTimeCreatable=False}">
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <Button Command="{Binding BackCommand}">
-                <materialDesign:PackIcon Kind="ArrowLeft"/>
+                <materialDesign:PackIcon Kind="ArrowLeft" />
             </Button>
             <Button Command="{Binding ForwardCommand}">
-                <materialDesign:PackIcon Kind="ArrowRight"/>
+                <materialDesign:PackIcon Kind="ArrowRight" />
             </Button>
         </controls:WindowCommands>
     </controls:MetroWindow.LeftWindowCommands>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Content="{Binding CurrentUrl}" Click="CurrentUrl_OnClick"/>
+            <Button Content="{Binding CurrentUrl}" Click="CurrentUrl_OnClick" />
             <Button Click="Changelog_OnClick">
                 Changelog
             </Button>
@@ -35,7 +37,7 @@
             </Button>
             <Button Click="Donate_OnClick">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconFontAwesome VerticalAlignment="Center" Kind="Paypal"/>
+                    <iconPacks:PackIconFontAwesome VerticalAlignment="Center" Kind="Paypal" />
                     <TextBlock>Donate</TextBlock>
                 </StackPanel>
             </Button>
@@ -44,49 +46,58 @@
     <materialDesign:DialogHost>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="37"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="37" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <materialDesign:ColorZone Mode="Standard" VerticalAlignment="Stretch" Grid.RowSpan="2">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="37"/>
-                        <RowDefinition Height="37"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="37"/>
+                        <RowDefinition Height="37" />
+                        <RowDefinition Height="37" />
+                        <RowDefinition Height="37" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="37" />
                     </Grid.RowDefinitions>
                     <Button Style="{DynamicResource MaterialDesignToolButton}"
-                                materialDesign:RippleAssist.ClipToBounds="True"
-                                materialDesign:RippleAssist.IsCentered="True"
-                                Height="37" Width="37" ToolTip="Home"
-                                Command="{Binding SwitchViewCommand}" CommandParameter="0">
-                        <materialDesign:PackIcon Kind="Home" Width="28" Height="28"/>
+                            materialDesign:RippleAssist.ClipToBounds="True"
+                            materialDesign:RippleAssist.IsCentered="True"
+                            Height="37" Width="37" ToolTip="Home"
+                            Command="{Binding SwitchViewCommand}" CommandParameter="0">
+                        <materialDesign:PackIcon Kind="Home" Width="28" Height="28" />
                     </Button>
                     <Button Grid.Row="1" Style="{DynamicResource MaterialDesignToolButton}"
-                                materialDesign:RippleAssist.ClipToBounds="True"
-                                materialDesign:RippleAssist.IsCentered="True"
-                                Height="37" Width="37" ToolTip="Userlogs"
-                                Command="{Binding SwitchViewCommand}" CommandParameter="4">
-                        <materialDesign:PackIcon Kind="Account" Width="28" Height="28"/>
+                            materialDesign:RippleAssist.ClipToBounds="True"
+                            materialDesign:RippleAssist.IsCentered="True"
+                            Height="37" Width="37" ToolTip="Userlogs"
+                            Command="{Binding SwitchViewCommand}" CommandParameter="4">
+                        <materialDesign:PackIcon Kind="Account" Width="28" Height="28" />
                     </Button>
-                    <Button Grid.Row="3" Style="{DynamicResource MaterialDesignToolButton}"
-                                materialDesign:RippleAssist.ClipToBounds="True"
-                                materialDesign:RippleAssist.IsCentered="True"
-                                Height="37" Width="37" Padding="2" ToolTip="Settings">
-                        <materialDesign:PackIcon Kind="Settings" Width="28" Height="28"/>
+                    <Button Grid.Row="2" Style="{DynamicResource MaterialDesignToolButton}"
+                            materialDesign:RippleAssist.ClipToBounds="True"
+                            materialDesign:RippleAssist.IsCentered="True"
+                            Height="37" Width="37" ToolTip="Mentions"
+                            Command="{Binding SwitchViewCommand}" CommandParameter="5">
+                        <materialDesign:PackIcon Kind="At" Width="28" Height="28" />
+                    </Button>
+                    <Button Grid.Row="4" Style="{DynamicResource MaterialDesignToolButton}"
+                            materialDesign:RippleAssist.ClipToBounds="True"
+                            materialDesign:RippleAssist.IsCentered="True"
+                            Height="37" Width="37" Padding="2" ToolTip="Settings">
+                        <materialDesign:PackIcon Kind="Settings" Width="28" Height="28" />
                     </Button>
                 </Grid>
             </materialDesign:ColorZone>
             <materialDesign:Transitioner Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding ViewIndex}">
-                <views:ChannelsView DataContext="{Binding ChannelsDataContext}"/>
-                <views:MonthsView DataContext="{Binding MonthsDataContext}"/>
-                <views:DaysView DataContext="{Binding DaysDataContext}"/>
-                <views:UserlogsView DataContext="{Binding UserlogsDataContext}"/>
-                <views:LogCollectionView DataContext="{Binding LogsDataContext}"/>
+                <views:ChannelsView DataContext="{Binding ChannelsDataContext}" />
+                <views:MonthsView DataContext="{Binding MonthsDataContext}" />
+                <views:DaysView DataContext="{Binding DaysDataContext}" />
+                <views:UserlogsView DataContext="{Binding UserlogsDataContext}" />
+                <views:LogCollectionView DataContext="{Binding LogsDataContext}" />
+                <views:MentionsView DataContext="{Binding MentionsDataContext}" />
             </materialDesign:Transitioner>
         </Grid>
     </materialDesign:DialogHost>

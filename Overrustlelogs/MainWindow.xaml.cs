@@ -18,7 +18,7 @@ using Overrustlelogs.ViewModels.ViewModels;
 
 namespace Overrustlelogs {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow {
         public MainWindow(ViewModelFactory viewModelFactory) {
@@ -39,7 +39,8 @@ namespace Overrustlelogs {
         private void Changelog_OnClick(object sender, RoutedEventArgs e) {
             try {
                 Process.Start("https://github.com/slugalisk/overrustlelogs/commits/master");
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 Console.WriteLine(ex);
             }
         }
@@ -47,7 +48,8 @@ namespace Overrustlelogs {
         private void Donate_OnClick(object sender, RoutedEventArgs e) {
             try {
                 Process.Start("https://twitch.streamlabs.com/overrustlelogs#/");
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 Console.WriteLine(ex);
             }
         }

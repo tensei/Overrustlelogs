@@ -23,14 +23,19 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             SubmitCommand = new ActionCommand(async () => await GetMessages());
             NextMonthCommand = new ActionCommand(NextMonth);
             PrevMonthCommand = new ActionCommand(PrevMonth);
-            Channels = new ObservableCollection<string>();
-            GetChannel().ConfigureAwait(false);
+            if (CurrentState.Channels == null) {
+                Channels = new ObservableCollection<string>();
+                GetChannel().ConfigureAwait(false);
+                return;
+            }
+            Channels= new ObservableCollection<string>();
+            CurrentState.Channels.ForEach(c => Channels.Add(c.Name));
         }
 
         public ICommand SubmitCommand { get; }
 
         public IMessageModel SelectedMonth {
-            get { return _selectedMonth; }
+            get => _selectedMonth;
             set {
                 _selectedMonth = value;
                 value.GetLogCommand.Execute(null);

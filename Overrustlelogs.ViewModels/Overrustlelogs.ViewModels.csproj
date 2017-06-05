@@ -59,6 +59,7 @@
     <Compile Include="ViewModels\DaysViewModel.cs" />
     <Compile Include="ViewModels\LogCollectionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MentionsViewModel.cs" />
     <Compile Include="ViewModels\MonthsViewModel.cs" />
     <Compile Include="ViewModels\UserlogsViewModel.cs" />
   </ItemGroup>

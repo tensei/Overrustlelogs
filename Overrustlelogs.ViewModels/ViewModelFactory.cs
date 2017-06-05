@@ -13,13 +13,15 @@ namespace Overrustlelogs.ViewModels {
         private readonly IApiDays _apiDays;
         private readonly IApiLogs _apiLogs;
         private readonly IApiUserlogs _apiUserlogs;
+        private readonly IApiMentions _apiMentions;
 
-        public ViewModelFactory(IApiChannels apiChannels, IApiMonths apiMonths, IApiDays apiDays, IApiLogs apiLogs, IApiUserlogs apiUserlogs) {
+        public ViewModelFactory(IApiChannels apiChannels, IApiMonths apiMonths, IApiDays apiDays, IApiLogs apiLogs, IApiUserlogs apiUserlogs, IApiMentions apiMentions) {
             _apiChannels = apiChannels;
             _apiMonths = apiMonths;
             _apiDays = apiDays;
             _apiLogs = apiLogs;
             _apiUserlogs = apiUserlogs;
+            _apiMentions = apiMentions;
         }
 
         public MainWindowViewModel CreateMainWindowViewModel => new MainWindowViewModel(this);
@@ -28,5 +30,6 @@ namespace Overrustlelogs.ViewModels {
         public DaysViewModel CreateDaysViewModel(Action<string, string> changeTitle) => new DaysViewModel(changeTitle, _apiDays);
         public LogCollectionViewModel CreateLogsViewModel() => new LogCollectionViewModel(_apiLogs, _apiChannels);
         public UserlogsViewModel CreateUserlogsViewModel(Action<string, string> changeTitle) => new UserlogsViewModel(changeTitle, _apiUserlogs);
+        public MentionsViewModel CreateMentionsViewModel() => new MentionsViewModel(_apiChannels, _apiMentions);
     }
 }

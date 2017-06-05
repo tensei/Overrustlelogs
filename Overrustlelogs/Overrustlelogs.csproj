@@ -99,6 +99,9 @@
     <Compile Include="Views\DaysView.xaml.cs">
       <DependentUpon>DaysView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MentionsView.xaml.cs">
+      <DependentUpon>MentionsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserlogsView.xaml.cs">
       <DependentUpon>UserlogsView.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DaysView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MentionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

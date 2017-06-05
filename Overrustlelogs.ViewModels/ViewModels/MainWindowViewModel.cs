@@ -18,6 +18,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             _viewModelFactory = viewModelFactory;
             ChannelsDataContext = _viewModelFactory.CreateChannelsViewModel;
             LogsDataContext = _viewModelFactory.CreateLogsViewModel();
+            MentionsDataContext = _viewModelFactory.CreateMentionsViewModel();
             CurrentState.SwitchViewToMonth = ShowMonths;
             CurrentState.SwitchViewToDays = ShowDays;
             CurrentState.SwitchViewToUserlogs = ShowUserlogs;
@@ -31,11 +32,13 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public DaysViewModel DaysDataContext { get; set; }
         public LogCollectionViewModel LogsDataContext { get; set; }
         public UserlogsViewModel UserlogsDataContext { get; set; }
+        public MentionsViewModel MentionsDataContext { get; set; }
 
         public ICommand SwitchViewCommand { get; }
 
         public ICommand BackCommand { get; }
         public ICommand ForwardCommand { get; }
+
 
 
         private void Back() {

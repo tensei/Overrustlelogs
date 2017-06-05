@@ -21,16 +21,16 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public ObservableCollection<IDayModel> DaysList { get; set; }
 
         public IDayModel SelectedDay {
+            get => _selectedDay;
             set {
                 if (value == null) {
                     return;
                 }
                 OpenLog(value);
-                SelectedDayIndex = -1;
+                _selectedDay = value;
             }
         }
 
-        public int SelectedDayIndex { get; set; } = -1;
 
         public DaysViewModel(Action<string, string> changeTitle, IApiDays apiDays) {
             RefreshDaysCommand = new ActionCommand(async ()=> await GetDays());

@@ -1,54 +1,55 @@
 ﻿<UserControl x:Class="Overrustlelogs.Views.DaysView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Overrustlelogs.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance {x:Type viewModel:DaysViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="0,0,0,4">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{Binding RefreshDaysCommand}">
-                <materialDesign:PackIcon Kind="Refresh"/>
+                <materialDesign:PackIcon Kind="Refresh" />
             </Button>
             <TextBox Grid.Column="1" Width="200" materialDesign:HintAssist.Hint="Filter"
-                     TextChanged="Filter_OnTextChanged" 
-                     VerticalAlignment="Center"/>
+                     TextChanged="Filter_OnTextChanged"
+                     VerticalAlignment="Center" />
         </Grid>
         <ListBox Grid.Row="1" x:Name="DayList" ItemsSource="{Binding DaysList}"
-                 HorizontalContentAlignment="Stretch" 
+                 HorizontalContentAlignment="Stretch"
                  SelectedItem="{Binding SelectedDay}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Visibility}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                     <Grid VerticalAlignment="Center">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                <materialDesign:PackIcon Kind="File" Margin="0,0,10,0" VerticalAlignment="Center" Foreground="White"/>
-                                <TextBlock FontSize="16" Foreground="White" Text="{Binding Name}"/>
+                                <materialDesign:PackIcon Kind="File" Margin="0,0,10,0" VerticalAlignment="Center"
+                                                         Foreground="White" />
+                                <TextBlock FontSize="16" Foreground="White" Text="{Binding Name}" />
                             </StackPanel>
                             <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Gray">open in browser</TextBlock>
                         </Grid>

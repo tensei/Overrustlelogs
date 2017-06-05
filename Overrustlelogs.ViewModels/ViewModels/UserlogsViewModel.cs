@@ -17,22 +17,22 @@ namespace Overrustlelogs.ViewModels.ViewModels {
 
         public ICommand RefreshUsersCommand { get; }
         public ObservableCollection<IUserModel> UsersList { get; set; }
-        public ObservableCollection<IUserModel> _usersList { get; set; }
+        private ObservableCollection<IUserModel> _usersList { get; set; }
 
         public IUserModel SelectedUser {
+            get => _selectedUser;
             set {
                 if (value == null) {
                     return;
                 }
                 OpenLog(value);
-                SelectedUserIndex = -1;
+                _selectedUser = value;
             }
         }
 
         public ICommand FilterCommand { get; }
         public string FilterText{ get; set; }
-
-        public int SelectedUserIndex { get; set; } = -1;
+        
 
         public UserlogsViewModel(Action<string, string> changeTitle, IApiUserlogs apiUserlogs) {
             _apiUserlogs = apiUserlogs;

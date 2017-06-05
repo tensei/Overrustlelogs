@@ -29,12 +29,10 @@ namespace Overrustlelogs.ViewModels.ViewModels {
                     return;
                 }
                 CurrentState.SwitchViewToDays(value);
-                SelectedMonthIndex = -1;
+                _selectedMonth = value;
             }
         }
-
-        public int SelectedMonthIndex { get; set; } = -1;
-
+        
         public MonthsViewModel(IApiMonths apiMonths, Action<string, string> changeTitle) {
             RefreshMonthCommand = new ActionCommand(async ()=> await GetMonths());
             _apiMonths = apiMonths;
