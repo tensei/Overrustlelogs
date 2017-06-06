@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Overrustlelogs.Api.Interfaces;
@@ -18,7 +19,10 @@ namespace Overrustlelogs.Api {
             _apiMonths = apiMonths;
             if (_httpClient == null) {
                 _httpClient = new HttpClient {
-                    Timeout = TimeSpan.FromMinutes(1)
+                    Timeout = TimeSpan.FromMinutes(1),
+                    DefaultRequestHeaders = {
+                        UserAgent = { ProductInfoHeaderValue.Parse("Overrustlelogs-Desktop") }
+                    }
                 };
             }
         }

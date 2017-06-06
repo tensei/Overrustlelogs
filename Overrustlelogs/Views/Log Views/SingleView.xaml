@@ -78,7 +78,7 @@
                 </StackPanel>
             </Grid>
         </materialDesign:ColorZone>
-        <Grid Grid.Row="1" Margin="0,0,0,4">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -100,9 +100,13 @@
             </Button>
         </Grid>
         <TextBox x:Name="TextLog" Grid.Row="2" Text="{Binding SelectedMonth.Text}" FontSize="16" TextWrapping="Wrap"
-                 IsReadOnly="True" Padding="10"
+                 IsReadOnly="True" Padding="10,0,10,5" 
                  VerticalScrollBarVisibility="Auto"
-                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
+                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden" AutoWordSelection="True">
+            <TextBox.Foreground>
+                <SolidColorBrush Color="White" Opacity="0.8"/>
+            </TextBox.Foreground>
+        </TextBox>
         <ProgressBar Grid.Row="2" Style="{DynamicResource MaterialDesignCircularProgressBar}" 
                      Height="100" Width="100" IsIndeterminate="True"
                      Visibility="{Binding SelectedMonth.GetLogButtonVisibility,

@@ -26,13 +26,13 @@ namespace Overrustlelogs.Views.Log_Views {
             if (e.Key != Key.Enter) return;
             BindingOperations.GetBindingExpression((TextBox)sender, TextBox.TextProperty)?.UpdateSource();
             var datactx = (LogCollectionViewModel)DataContext;
-            datactx.SubmitCommand.Execute(null);
+            datactx.AddUserCommand.Execute(null);
         }
         private void ComboBox_PreviewKeyDown(object sender, KeyEventArgs e) {
             if (e.Key != Key.Enter) return;
             BindingOperations.GetBindingExpression((ComboBox)sender, ComboBox.TextProperty)?.UpdateSource();
             var datactx = (LogCollectionViewModel)DataContext;
-            datactx.SubmitCommand.Execute(null);
+            datactx.AddUserCommand.Execute(null);
         }
     }
 }

@@ -51,7 +51,7 @@
         <ItemsControl Grid.Row="1" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" Margin="0,5,0,0">
             <ItemsControl.Template>
                 <ControlTemplate>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer VerticalScrollBarVisibility="Visible" >
                         <ItemsPresenter/>
                     </ScrollViewer>
                 </ControlTemplate>
@@ -121,9 +121,13 @@
                                 </Grid>
                             </materialDesign:ColorZone>
                             <TextBox Grid.Row="1" Text="{Binding SelectedMonth.Text}" FontSize="16" TextWrapping="Wrap"
-                                         IsReadOnly="True" Padding="10" MaxHeight="500"
-                                         VerticalScrollBarVisibility="Auto"
-                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
+                                         IsReadOnly="True" Margin="10,0,10,5" MaxHeight="500" Background="#212121"
+                                         VerticalScrollBarVisibility="Auto" 
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden">
+                                <TextBox.Foreground>
+                                    <SolidColorBrush Color="White" Opacity="0.8"/>
+                                </TextBox.Foreground>
+                            </TextBox>
                             <ProgressBar Grid.Row="1" Style="{DynamicResource MaterialDesignCircularProgressBar}" 
                                              Height="100" Width="100" IsIndeterminate="True"
                                              Visibility="{Binding SelectedMonth.GetLogButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>

@@ -15,6 +15,9 @@
                       Height="650" Width="925" BorderBrush="Black" NonActiveBorderBrush="Black"
                       WindowTitleBrush="#FFC33E00"
                       BorderThickness="1" NonActiveWindowTitleBrush="#FFC33E00"
+                      Background="#212121" 
+                      TextElement.FontSize="14"
+                      FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
                       d:DataContext="{d:DesignInstance {x:Type viewModel:MainWindowViewModel}, IsDesignTimeCreatable=False}">
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
