@@ -8,35 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Overrustlelogs.Api.Interfaces;
+using Overrustlelogs.Api.Models;
 
 namespace Overrustlelogs.ViewModels.ViewModels {
     public class UserlogsViewModel : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly IApiUserlogs _apiUserlogs;
-        private IUserModel _selectedUser;
 
         public ICommand RefreshUsersCommand { get; }
         public ObservableCollection<IUserModel> UsersList { get; set; }
         private ObservableCollection<IUserModel> _usersList { get; set; }
-
-        public IUserModel SelectedUser {
-            get => _selectedUser;
-            set {
-                OpenLog(value);
-                if (value == null) {
-                    return;
-                }
-                _selectedUser = value;
-            }
-        }
-
+        
         public ICommand FilterCommand { get; }
+        public ICommand OpenUserlogCommand { get; }
         public string FilterText{ get; set; }
         
 
         public UserlogsViewModel(Action<string, string> changeTitle, IApiUserlogs apiUserlogs) {
             _apiUserlogs = apiUserlogs;
             RefreshUsersCommand = new ActionCommand(async () => await GetUsers());
+            OpenUserlogCommand = new Api.ActionCommand(u => OpenLog((UserModel)u));
             FilterCommand = new ActionCommand(Filter);
             changeTitle(CurrentState.Channel.Name, CurrentState.Month.Name+"/userlogs");
             if (CurrentState.Month.Users != null) {
@@ -52,22 +43,9 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             _usersList = CurrentState.Month.Users;
             UsersList = CurrentState.Month.Users;
         }
-
-        private IUserModel lastuser;
-        private DateTime _lastclick;
+        
         private void OpenLog(IUserModel user) {
-            var timediff = DateTime.Now - _lastclick;
-            if (timediff.Seconds < 1) {
-                return;
-            }
-            if (user == null) {
-                _lastclick = DateTime.Now;
-                Process.Start(lastuser.Url);
-                return;
-            }
             try {
-                lastuser = user;
-                _lastclick = DateTime.Now;
                 Process.Start(user.Url);
             } catch (Exception e) {
                 Console.WriteLine(e);

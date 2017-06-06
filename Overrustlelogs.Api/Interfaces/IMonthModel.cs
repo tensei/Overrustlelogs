@@ -2,8 +2,8 @@
 
 namespace Overrustlelogs.Api.Interfaces {
     public interface IMonthModel {
-        string Name { get; }
-        string Url { get; }
+        string Name { get; set; }
+        string Url { get; set; }
         bool Visibility { get; set; }
         ObservableCollection<IDayModel> Days { get; set; }
         ObservableCollection<IUserModel> Users { get; set; }

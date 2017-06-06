@@ -14,10 +14,10 @@ using Overrustlelogs.Api.Models;
 namespace Overrustlelogs.ViewModels.ViewModels {
     public class ChannelsViewModel : INotifyPropertyChanged {
         private readonly IApiChannels _channels;
-        private IChannelModel _selectedChannel;
         public event PropertyChangedEventHandler PropertyChanged;
         public ChannelsViewModel(IApiChannels channels) {
             RefreshChannelCommand = new ActionCommand(async () => await GetChannels());
+            SwitchToMonthCommand = new ActionCommand(c => CurrentState.SwitchViewToMonth((ChannelModel)c));
             _channels = channels;
             if (CurrentState.Channels == null) {
                 ChannelList = new ObservableCollection<ChannelModel>();
@@ -30,23 +30,12 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         
         public ICommand RefreshChannelCommand { get; }
 
-        public IChannelModel SelectedChannel {
-            get => _selectedChannel;
-            set {
-                CurrentState.SwitchViewToMonth(value);
-                if (value == null) {
-                    return;
-                }
-                _selectedChannel = value;
-            }
-        }
-        
+        public ICommand SwitchToMonthCommand { get; }
 
         private async Task GetChannels() {
             var channels = await _channels.Get();
             ChannelList = new ObservableCollection<ChannelModel>(channels);
             CurrentState.Channels = channels;
-            SelectedChannel = null;
         }
     }
 }

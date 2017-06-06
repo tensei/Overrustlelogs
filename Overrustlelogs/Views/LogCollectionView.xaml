@@ -6,99 +6,14 @@
              xmlns:local="clr-namespace:Overrustlelogs.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
+             xmlns:logViews="clr-namespace:Overrustlelogs.Views.Log_Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="900"
              d:DataContext="{d:DesignInstance {x:Type viewModel:LogCollectionViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <materialDesign:ColorZone Mode="Standard" Padding="8,4">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox  Width="200" BorderThickness="0" Text="{Binding User}"
-                          materialDesign:HintAssist.Hint="Username"
-                          VerticalAlignment="Center" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-                <ComboBox Grid.Column="2" Width="200" BorderThickness="0" ItemsSource="{Binding Channels}" 
-                          SelectedItem="{Binding SelectedChannel}"
-                          materialDesign:HintAssist.Hint="Channel"
-                          PreviewKeyDown="ComboBox_PreviewKeyDown"
-                          IsEditable="True" StaysOpenOnEdit="True">
-                    <ComboBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel />
-                        </ItemsPanelTemplate>
-                    </ComboBox.ItemsPanel>
-                </ComboBox>
-                <Button Grid.Column="4" Command="{Binding SubmitCommand}" Style="{DynamicResource MaterialDesignFlatButton}">Submit</Button>
-                <Grid Grid.Column="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <ComboBox  SelectedItem="{Binding SelectedMonth}" SelectedIndex="{Binding MonthIndex}"
-                               ItemsSource="{Binding MonthLogs}" HorizontalAlignment="Center" Width="150">
-                        <ComboBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel />
-                            </ItemsPanelTemplate>
-                        </ComboBox.ItemsPanel>
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Month}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <Button Grid.Column="1" Style="{DynamicResource MaterialDesignFlatButton}" Width="32" Padding="2" Margin="5,0"
-                            Command="{Binding PrevMonthCommand}" ToolTip="Previous Month">
-                        <materialDesign:PackIcon Kind="ArrowLeft"/>
-                    </Button>
-                    <Button Grid.Column="2" Style="{DynamicResource MaterialDesignFlatButton}" Width="32" Padding="2"
-                            Command="{Binding NextMonthCommand}" ToolTip="Next Month">
-                        <materialDesign:PackIcon Kind="ArrowRight"/>
-                    </Button>
-                </Grid>
-            </Grid>
-        </materialDesign:ColorZone>
-        <Grid Grid.Row="1" Margin="0,0,0,4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{Binding SelectedMonth.GetLogCommand}">
-                <materialDesign:PackIcon Kind="Refresh"/>
-            </Button>
-            <Button Grid.Column="2" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Click="DownArrow_OnClick">
-                <materialDesign:PackIcon Kind="ArrowDown"/>
-            </Button>
-            <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Click="UpArrow_OnClick">
-                <materialDesign:PackIcon Kind="ArrowUp"/>
-            </Button>
-        </Grid>
-        <TextBox x:Name="TextLog" Grid.Row="2" Text="{Binding SelectedMonth.Text}" FontSize="16" TextWrapping="Wrap"
-                 IsReadOnly="True" Padding="10"
-                 VerticalScrollBarVisibility="Auto"
-                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
-        <ProgressBar Grid.Row="2" Style="{DynamicResource MaterialDesignCircularProgressBar}" 
-                     Height="100" Width="100" IsIndeterminate="True"
-                     Visibility="{Binding SelectedMonth.GetLogButtonVisibility,
-            Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
+        <materialDesign:Transitioner SelectedIndex="{Binding ViewIndex}">
+           <logViews:SingleView/>
+           <logViews:MultiView/>
+       </materialDesign:Transitioner>
     </Grid>
 </UserControl>

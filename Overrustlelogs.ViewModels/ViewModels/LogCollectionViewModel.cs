@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Overrustlelogs.Api.Interfaces;
+using Overrustlelogs.ViewModels.Interfaces;
+using Overrustlelogs.ViewModels.Models;
 
 namespace Overrustlelogs.ViewModels.ViewModels {
     public class LogCollectionViewModel : INotifyPropertyChanged {
@@ -16,6 +18,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         private IMessageModel _selectedMonth;
         public string User { get; set; }
         public ObservableCollection<IMessageModel> MonthLogs { get; set; }
+        public ObservableCollection<IMultiViewUserModel> Users { get; set; }
         public ObservableCollection<string> Channels { get; set; }
         public LogCollectionViewModel(IApiLogs apiLogs, IApiChannels apiChannels) {
             _apiLogs = apiLogs;
@@ -23,16 +26,20 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             SubmitCommand = new ActionCommand(async () => await GetMessages());
             NextMonthCommand = new ActionCommand(NextMonth);
             PrevMonthCommand = new ActionCommand(PrevMonth);
+            AddUserCommand = new Api.ActionCommand(async () => await AddUser());
+            RemoveUserCommand = new Api.ActionCommand(u => RenoveUser((MultiViewUserModel) u));
             if (CurrentState.Channels == null) {
                 Channels = new ObservableCollection<string>();
                 GetChannel().ConfigureAwait(false);
                 return;
             }
             Channels= new ObservableCollection<string>();
+            Users = new ObservableCollection<IMultiViewUserModel>();
             CurrentState.Channels.ForEach(c => Channels.Add(c.Name));
         }
 
         public ICommand SubmitCommand { get; }
+        public ICommand RemoveUserCommand { get; }
 
         public IMessageModel SelectedMonth {
             get => _selectedMonth;
@@ -48,6 +55,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public string Status { get; set; }
 
         public int MonthIndex { get; set; }
+        public int ViewIndex { get; set; }
 
         private async Task GetMessages() {
             if (string.IsNullOrWhiteSpace(User)|| string.IsNullOrWhiteSpace(SelectedChannel)) {
@@ -62,6 +70,19 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             ProgressbarVisibility = Visibility.Collapsed;
             monthsList.ForEach(MonthLogs.Add);
             SelectedMonth = monthsList.FirstOrDefault(m => m.Month == SelectedMonth?.Month) ?? monthsList.FirstOrDefault();
+        }
+        private async Task AddUser() {
+            if (string.IsNullOrWhiteSpace(User)|| string.IsNullOrWhiteSpace(SelectedChannel)) {
+                return;
+            }
+            if (SelectedChannel != "Destinygg") {
+                User = User.ToLower();
+            }
+            var monthsList = await _apiLogs.Get(User, SelectedChannel);
+            if (Users == null) {
+                Users = new ObservableCollection<IMultiViewUserModel>();
+            }
+            Users.Add(new MultiViewUserModel(User, SelectedChannel, monthsList));
         }
 
         private async Task GetChannel() {
@@ -80,16 +101,22 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             }
             if (MonthIndex > 0) {
                 MonthIndex--;
-                //SelectedMonth.GetLogCommand.Execute(null);
             }
         }
         public ICommand PrevMonthCommand { get; }
+
+
+
         private void PrevMonth() {
             if (MonthIndex < MonthLogs?.Count) {
                 MonthIndex++;
-                //SelectedMonth.GetLogCommand.Execute(null);
             }
         }
+
+        private void RenoveUser(IMultiViewUserModel multiViewUser) {
+            Users.Remove(multiViewUser);
+        }
+        public ICommand AddUserCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

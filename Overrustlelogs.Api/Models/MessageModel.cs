@@ -24,11 +24,12 @@ namespace Overrustlelogs.Api.Models {
             GetLogCommand = new ActionCommand(async () => await GetLog());
         }
 
-        public bool GetLogButtonVisibility { get; set; } = true;
+        public bool GetLogButtonVisibility { get; set; }
         public ICommand GetLogCommand { get; }
 
         private async Task GetLog() {
             Text = string.Empty;
+            GetLogButtonVisibility = true;
             var text = await _apiLogs.GetLogString(_url);
             if (text == null) {
                 Text = "Error try again";
@@ -38,7 +39,6 @@ namespace Overrustlelogs.Api.Models {
             UnEditedText = text.Split(new []{'\n'}, StringSplitOptions.RemoveEmptyEntries);
             GetLogButtonVisibility = false;
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

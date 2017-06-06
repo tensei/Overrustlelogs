@@ -10,8 +10,6 @@ namespace Overrustlelogs.Views {
     public partial class DaysView : UserControl {
         public DaysView() {
             InitializeComponent();
-            DayList.SelectionChanged += (sender, args) => { DayList.UnselectAll(); };
-            DayList.PreviewMouseRightButtonDown += (sender, args) => { args.Handled = true; };
         }
         
 

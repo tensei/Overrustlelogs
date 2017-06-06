@@ -22,26 +22,5 @@ namespace Overrustlelogs.Views {
         public LogCollectionView() {
             InitializeComponent();
         }
-
-        private void DownArrow_OnClick(object sender, RoutedEventArgs e) {
-            TextLog.ScrollToEnd();
-        }
-
-        private void UpArrow_OnClick(object sender, RoutedEventArgs e) {
-            TextLog.ScrollToHome();
-        }
-
-        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e) {
-            if (e.Key != Key.Enter) return;
-            BindingOperations.GetBindingExpression((TextBox)sender, TextBox.TextProperty)?.UpdateSource();
-            var datactx = (LogCollectionViewModel)DataContext;
-            datactx.SubmitCommand.Execute(null);
-        }
-        private void ComboBox_PreviewKeyDown(object sender, KeyEventArgs e) {
-            if (e.Key != Key.Enter) return;
-            BindingOperations.GetBindingExpression((ComboBox)sender, ComboBox.TextProperty)?.UpdateSource();
-            var datactx = (LogCollectionViewModel)DataContext;
-            datactx.SubmitCommand.Execute(null);
-        }
     }
 }

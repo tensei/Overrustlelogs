@@ -10,8 +10,6 @@ namespace Overrustlelogs.Views {
     public partial class ChannelsView : UserControl {
         public ChannelsView() {
             InitializeComponent();
-            ChannelList.SelectionChanged += (sender, args) => { ChannelList.UnselectAll(); };
-            ChannelList.PreviewMouseRightButtonDown += (sender, args) => { args.Handled = true; };
         }
         
 

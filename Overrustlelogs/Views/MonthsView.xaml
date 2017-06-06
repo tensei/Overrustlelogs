@@ -30,29 +30,44 @@
                      TextChanged="Filter_OnTextChanged"
                      VerticalAlignment="Center" />
         </Grid>
-        <ListBox Grid.Row="1" x:Name="MonthList" ItemsSource="{Binding MonthsList}"
-                 HorizontalContentAlignment="Stretch"
-                 SelectedItem="{Binding SelectedMonth}">
-            <ListBox.ItemTemplate>
+
+        <ItemsControl Grid.Row="1" x:Name="MonthList" ItemsSource="{Binding MonthsList}"
+                      HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Stretch">
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel VirtualizationMode="Recycling"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Visibility}" Value="False">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
-                    <Grid VerticalAlignment="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center"
-                                                     Foreground="White" />
-                            <TextBlock FontSize="16" Foreground="White" Text="{Binding Name}" />
-                        </StackPanel>
-                    </Grid>
+                    <Button Style="{DynamicResource MaterialDesignFlatButton}" 
+                            Command="{Binding DataContext.SwitchToDaysCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MonthsView}}}"
+                            CommandParameter="{Binding}"
+                            Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
+                        <Grid VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center"
+                                                         Foreground="White" />
+                                <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
     </Grid>
 </UserControl>

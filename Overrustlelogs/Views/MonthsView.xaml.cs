@@ -10,8 +10,6 @@ namespace Overrustlelogs.Views {
     public partial class MonthsView : UserControl {
         public MonthsView() {
             InitializeComponent();
-            MonthList.SelectionChanged += (sender, args) => { MonthList.UnselectAll(); };
-            MonthList.PreviewMouseRightButtonDown += (sender, args) => { args.Handled = true; };
         }
         
         private void Filter_OnTextChanged(object sender, TextChangedEventArgs e) {

@@ -9,8 +9,8 @@ using Overrustlelogs.Api.Interfaces;
 
 namespace Overrustlelogs.Api.Models {
     public class MonthModel : IMonthModel, INotifyPropertyChanged {
-        public string Name { get; }
-        public string Url { get; }
+        public string Name { get; set; }
+        public string Url { get; set; }
         public bool Visibility { get; set; } = true;
 
         public ObservableCollection<IDayModel> Days { get; set; }

@@ -30,33 +30,50 @@
             <TextBlock Margin="5,0" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right"
                        Text="{Binding ChannelList.Count}" />
         </Grid>
-        <ListBox Grid.Row="1" x:Name="ChannelList" ItemsSource="{Binding ChannelList}"
+        <ItemsControl Grid.Row="1" x:Name="ChannelList" ItemsSource="{Binding ChannelList}"
                  HorizontalContentAlignment="Stretch"
-                 VerticalContentAlignment="Stretch" SelectedItem="{Binding SelectedChannel}">
-            <ListBox.ItemTemplate>
+                 VerticalContentAlignment="Stretch">
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel VirtualizationMode="Recycling"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Visibility}" Value="False">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
-                    <Grid VerticalAlignment="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center"
-                                                     Foreground="White" />
-                            <TextBlock FontSize="16" Foreground="White">
-                                <Run Text="{Binding Name}" />
-                                <Run Text="chatlog" />
-                            </TextBlock>
-                        </StackPanel>
-                    </Grid>
+                    <Button Style="{DynamicResource MaterialDesignFlatButton}" 
+                            Command="{Binding DataContext.SwitchToMonthCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ChannelsView}}}"
+                            CommandParameter="{Binding}"
+                            Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
+                        <Grid VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center"
+                                                         Foreground="White" />
+                                <TextBlock FontSize="16" Foreground="White">
+                                    <Run Text="{Binding Name}" />
+                                    <Run Text="chatlog" />
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>                        
+                    </Button>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
     </Grid>
 </UserControl>
