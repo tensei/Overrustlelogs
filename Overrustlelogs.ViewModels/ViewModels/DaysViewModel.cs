@@ -37,7 +37,6 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         private async Task GetDays() {
             var days = await _apiDays.Get(CurrentState.Channel, CurrentState.Month);
             CurrentState.Month.Days = new ObservableCollection<IDayModel>(days);
-            CurrentState.Month.Days.Insert(0, new DayModel("userlogs", CurrentState.Month.Url+"/userlogs"));
             DaysList = CurrentState.Month.Days;
         }
 

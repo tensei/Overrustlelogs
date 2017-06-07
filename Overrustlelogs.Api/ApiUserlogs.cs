@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Overrustlelogs.Api.Interfaces;
 using Overrustlelogs.Api.Models;
 
@@ -23,13 +24,18 @@ namespace Overrustlelogs.Api {
             }
         }
 
-        public async Task<List<IUserModel>> Get(IMonthModel month) {
-            var url = month.Url;
-            var response = await _httpClient.GetStringAsync(url +"/userlogs");
-            var dayList = Regex.Matches(response, "<span>&nbsp; ([a0-z9-]+).txt</span>", RegexOptions.IgnoreCase);
+        public async Task<List<IUserModel>> Get(IChannelModel channel, IMonthModel month) {
+            var url = month.ApiUrl.Replace("days.json", "users.json");
+            string response;
+            try {
+                response = await _httpClient.GetStringAsync(url);
+            } catch (Exception) {
+                return null;
+            }
+            var userList = JsonConvert.DeserializeObject<List<string>>(response);
             var users = new List<IUserModel>();
-            foreach (Match match in dayList) {
-                users.Add(new UserModel(match.Groups[1].Value, $"{url}/userlogs/{match.Groups[1].Value}"));
+            foreach (var user in userList) {
+                users.Add(new UserModel(user, $"https://overrustlelogs.net/{channel.Name}%20chatlog/{month.Name}/userlogs/{user.Replace(".txt", string.Empty)}"));
 
             }
             return users;

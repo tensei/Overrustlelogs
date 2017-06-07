@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Overrustlelogs.Api.Interfaces;
 using Overrustlelogs.Api.Models;
 
@@ -25,18 +26,10 @@ namespace Overrustlelogs.Api {
         }
 
         public async Task<List<IMonthModel>> Get(IChannelModel channel) {
-            var url = channel.Url;
-            var response = await _httpClient.GetStringAsync(url);
-            var channelsregex = Regex.Matches(response, "<span>&nbsp; ([a-z]+ [0-9]+)</span>", RegexOptions.IgnoreCase);
-            var channels = new List<IMonthModel>();
-            foreach (Match match in channelsregex) {
-                channels.Add(new MonthModel(match.Groups[1].Value, $"{url}/{match.Groups[1].Value.Replace(" ", "%20")}"));
-
-            }
-            return channels;
+            return await Get(channel.Name);
         }
         public async Task<List<IMonthModel>> Get(string channel) {
-            var url = $"https://overrustlelogs.net/{channel}%20chatlog";
+            var url = $"https://overrustlelogs.net/api/v1/{channel}/months.json";
             string response;
             try {
                 response = await _httpClient.GetStringAsync(url);
@@ -44,13 +37,14 @@ namespace Overrustlelogs.Api {
             catch (Exception) {
                 return null;
             }
-            var channelsregex = Regex.Matches(response, "<span>&nbsp; ([a-z]+ [0-9]+)</span>", RegexOptions.IgnoreCase);
-            var channels = new List<IMonthModel>();
-            foreach (Match match in channelsregex) {
-                channels.Add(new MonthModel(match.Groups[1].Value, $"{url}/{match.Groups[1].Value.Replace(" ", "%20")}"));
-
+            var months = JsonConvert.DeserializeObject<List<string>>(response);
+            var monthList = new List<IMonthModel>();
+            foreach (var month in months) {
+                var monthurlapi = $"https://overrustlelogs.net/api/v1/{channel}/{month.Replace(" ", "%20")}/days.json";
+                var monthurl = $"https://overrustlelogs.net/{channel} chatlog/{month}";
+                monthList.Add(new MonthModel(month, monthurl, monthurlapi));
             }
-            return channels;
+            return monthList;
         }
     }
 }

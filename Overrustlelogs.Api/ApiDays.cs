@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Overrustlelogs.Api.Interfaces;
 using Overrustlelogs.Api.Models;
 
@@ -24,12 +25,20 @@ namespace Overrustlelogs.Api {
         }
 
         public async Task<List<IDayModel>> Get(IChannelModel channel, IMonthModel month) {
-            var url = month.Url;
-            var response = await _httpClient.GetStringAsync(url);
-            var dayList = Regex.Matches(response, "<span>&nbsp; ([a0-z9-]+).txt</span>", RegexOptions.IgnoreCase);
+            var url = month.ApiUrl;
+            string response;
+            try {
+                response = await _httpClient.GetStringAsync(url);
+            } catch (Exception) {
+                return null;
+            }
+            var dayList = JsonConvert.DeserializeObject<List<string>>(response);
+            dayList.Insert(0, "userlogs");
             var days = new List<IDayModel>();
-            foreach (Match match in dayList) {
-                days.Add(new DayModel(match.Groups[1].Value, $"{url}/{match.Groups[1].Value}"));
+            foreach (var day in dayList) {
+                var dayurl = $"https://overrustlelogs.net/{channel.Name}%20chatlog/{month.Name.Replace(" ", "%20")}/{day.Replace(".txt", string.Empty)}";
+                var dayurlapi = $"https://overrustlelogs.net/{channel.Name}/{month.Name}/users.json";
+                days.Add(new DayModel(day, dayurl, dayurlapi));
 
             }
             return days;

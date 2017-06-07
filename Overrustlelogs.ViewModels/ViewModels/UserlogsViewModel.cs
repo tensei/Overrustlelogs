@@ -38,7 +38,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         }
 
         private async Task GetUsers() {
-            var days = await _apiUserlogs.Get(CurrentState.Month);
+            var days = await _apiUserlogs.Get(CurrentState.Channel, CurrentState.Month);
             CurrentState.Month.Users = new ObservableCollection<IUserModel>(days);
             _usersList = CurrentState.Month.Users;
             UsersList = CurrentState.Month.Users;
