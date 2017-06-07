@@ -81,20 +81,25 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+            
             <Button Grid.Column="0" Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{Binding SelectedMonth.GetLogCommand}">
                 <materialDesign:PackIcon Kind="Refresh"/>
             </Button>
-            <Button Grid.Column="2" Style="{DynamicResource MaterialDesignFlatButton}"
+            <TextBox Grid.Column="1" Margin="10,0" VerticalAlignment="Center"
+                     TextChanged="Search_OnTextChanged"
+                     materialDesign:HintAssist.Hint="Search" Width="200"/>
+            <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}"
                     Click="DownArrow_OnClick">
                 <materialDesign:PackIcon Kind="ArrowDown"/>
             </Button>
-            <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}"
+            <Button Grid.Column="4" Style="{DynamicResource MaterialDesignFlatButton}"
                     Click="UpArrow_OnClick">
                 <materialDesign:PackIcon Kind="ArrowUp"/>
             </Button>

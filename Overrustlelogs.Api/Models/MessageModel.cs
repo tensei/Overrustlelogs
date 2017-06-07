@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Remoting;
@@ -38,6 +39,12 @@ namespace Overrustlelogs.Api.Models {
             Text = text;
             UnEditedText = text.Split(new []{'\n'}, StringSplitOptions.RemoveEmptyEntries);
             GetLogButtonVisibility = false;
+        }
+
+        public void ParseLog(string search) {
+            // [2017-05-20 19:04:51 UTC] xxxx: xxxx
+            var text = UnEditedText.Where(s => s.ToLower().Contains(search.ToLower())).Aggregate(string.Empty, (current, s) => current + $"{s}\n");
+            Text = text;
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }

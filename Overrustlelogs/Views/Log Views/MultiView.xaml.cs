@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Overrustlelogs.ViewModels.Models;
 using Overrustlelogs.ViewModels.ViewModels;
 
 namespace Overrustlelogs.Views.Log_Views {
@@ -33,6 +34,12 @@ namespace Overrustlelogs.Views.Log_Views {
             BindingOperations.GetBindingExpression((ComboBox)sender, ComboBox.TextProperty)?.UpdateSource();
             var datactx = (LogCollectionViewModel)DataContext;
             datactx.AddUserCommand.Execute(null);
+        }
+        private void Search_OnTextChanged(object sender, TextChangedEventArgs e) {
+            var textbox = (TextBox)sender;
+            //BindingOperations.GetBindingExpression(textbox, TextBox.TextProperty)?.UpdateSource();
+            var datactx = (MultiViewUserModel)textbox.DataContext;
+            datactx?.SelectedMonth?.ParseLog(textbox.Text);
         }
     }
 }

@@ -49,13 +49,16 @@
                 <Button Grid.Column="6" Command="{Binding SubmitCommand}" Style="{DynamicResource MaterialDesignFlatButton}">Submit</Button>
             </Grid>
         </materialDesign:ColorZone>
-        <Grid Grid.Row="1" Margin="0,0,0,4">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Margin="10,0" VerticalAlignment="Center"
+                     TextChanged="Search_OnTextChanged"
+                     materialDesign:HintAssist.Hint="Search" Width="200"/>
             <Button Grid.Column="2" Style="{DynamicResource MaterialDesignFlatButton}"
                     Click="DownArrow_OnClick">
                 <materialDesign:PackIcon Kind="ArrowDown"/>
@@ -66,7 +69,7 @@
             </Button>
         </Grid>
         <TextBox x:Name="TextLog" Grid.Row="2" Text="{Binding Text}" FontSize="16" TextWrapping="Wrap"
-                 IsReadOnly="True" Padding="10"
+                 IsReadOnly="True" Padding="10,0,10,5"
                  VerticalScrollBarVisibility="Auto"
                  materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
         <ProgressBar Grid.Row="2" Style="{DynamicResource MaterialDesignCircularProgressBar}" 

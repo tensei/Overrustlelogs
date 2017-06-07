@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Overrustlelogs.Api.Interfaces {
     public interface IMessageModel {
@@ -7,5 +8,6 @@ namespace Overrustlelogs.Api.Interfaces {
         string Month { get; set; }
         ICommand GetLogCommand { get; }
         bool GetLogButtonVisibility { get; set; }
+        void ParseLog(string search);
     }
 }

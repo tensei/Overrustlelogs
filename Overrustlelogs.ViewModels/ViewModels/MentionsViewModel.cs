@@ -15,6 +15,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         private readonly IApiMentions _apiMentions;
         public string User { get; set; }
         public string Text { get; set; }
+        public string[] UnEditedText { get; set; }
         public ObservableCollection<string> Channels { get; set; }
         public MentionsViewModel(IApiChannels apiChannels, IApiMentions apiMentions) {
             _apiChannels = apiChannels;
@@ -65,8 +66,10 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             var sb = new StringBuilder();
             foreach (var mentionModel in mentions) {
                 sb.AppendLine($"[{mentionModel.Date}] {mentionModel.nick}: {mentionModel.text}");
+
             }
             Text = sb.ToString();
+            UnEditedText = sb.ToString().Split('\n');
             ProgressbarVisibility = Visibility.Collapsed;
         }
 
@@ -74,7 +77,12 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             var ch = await _apiChannels.Get();
             ch.ForEach(c => Channels.Add(c.Name));
         }
-        
+
+        public void ParseLog(string search) {
+            // [2017-05-20 19:04:51 UTC] xxxx: xxxx
+            var text = UnEditedText.Where(s => s.ToLower().Contains(search.ToLower())).Aggregate(string.Empty, (current, s) => current + $"{s}\n");
+            Text = text;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

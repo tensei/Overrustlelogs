@@ -76,6 +76,8 @@
     <Compile Include="Interfaces\IMessageModel.cs" />
     <Compile Include="Interfaces\IUserModel.cs" />
     <Compile Include="Interfaces\IMentionModel.cs" />
+    <Compile Include="Interfaces\ILogMessageModel.cs" />
+    <Compile Include="Models\LogMessageModel.cs" />
     <Compile Include="Models\MentionModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\MonthModel.cs" />

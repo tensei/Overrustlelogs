@@ -42,5 +42,12 @@ namespace Overrustlelogs.Views {
             var datactx = (MentionsViewModel)DataContext;
             datactx.SubmitCommand.Execute(null);
         }
+
+        private void Search_OnTextChanged(object sender, TextChangedEventArgs e) {
+            var textbox = (TextBox)sender;
+            //BindingOperations.GetBindingExpression(textbox, TextBox.TextProperty)?.UpdateSource();
+            var datactx = (MentionsViewModel)DataContext;
+            datactx?.ParseLog(textbox.Text);
+        }
     }
 }

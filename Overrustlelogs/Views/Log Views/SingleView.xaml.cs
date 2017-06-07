@@ -43,5 +43,12 @@ namespace Overrustlelogs.Views.Log_Views {
             var datactx = (LogCollectionViewModel)DataContext;
             datactx.SubmitCommand.Execute(null);
         }
+
+        private void Search_OnTextChanged(object sender, TextChangedEventArgs e) {
+            var textbox = (TextBox) sender;
+            //BindingOperations.GetBindingExpression(textbox, TextBox.TextProperty)?.UpdateSource();
+            var datactx = (LogCollectionViewModel)DataContext;
+            datactx?.SelectedMonth?.ParseLog(textbox.Text);
+        }
     }
 }
