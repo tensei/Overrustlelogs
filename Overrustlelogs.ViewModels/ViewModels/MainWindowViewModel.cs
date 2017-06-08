@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Overrustlelogs.Api.Interfaces;
+using Overrustlelogs.ViewModels.Factories;
 
 namespace Overrustlelogs.ViewModels.ViewModels {
     public class MainWindowViewModel : INotifyPropertyChanged {
         private readonly ViewModelFactory _viewModelFactory;
-        public event PropertyChangedEventHandler PropertyChanged;
-        public MainWindowViewModel(ViewModelFactory viewModelFactory) {
+
+        public MainWindowViewModel(ViewModelFactory viewModelFactory, Action<string> snackbarMessage) {
             SwitchViewCommand = new ActionCommand(i => SwitchViewTo((string) i));
             ForwardCommand = new ActionCommand(Forward);
             BackCommand = new ActionCommand(Back);
@@ -22,7 +19,9 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             CurrentState.SwitchViewToMonth = ShowMonths;
             CurrentState.SwitchViewToDays = ShowDays;
             CurrentState.SwitchViewToUserlogs = ShowUserlogs;
+            snackbarMessage("test");
         }
+
         public int ViewIndex { get; set; }
         public string Title { get; set; } = "Overrustle Logs";
         public string CurrentUrl { get; set; } = "https://overrustlelogs.net";
@@ -38,10 +37,10 @@ namespace Overrustlelogs.ViewModels.ViewModels {
 
         public ICommand BackCommand { get; }
         public ICommand ForwardCommand { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
-
-        private void Back() {
+        public void Back() {
             var currentIndex = ViewIndex;
             switch (currentIndex) {
                 case 1:
@@ -58,6 +57,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
                     break;
             }
         }
+
         private void Forward() {
             var currentIndex = ViewIndex;
             switch (currentIndex) {
@@ -93,6 +93,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             MonthsDataContext = _viewModelFactory.CreateMonthsViewModel(ChangeTitle);
             ViewIndex = 1;
         }
+
         private void ShowDays(IMonthModel month = null) {
             if (month != null) {
                 CurrentState.Month = month;
@@ -100,6 +101,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             DaysDataContext = _viewModelFactory.CreateDaysViewModel(ChangeTitle);
             ViewIndex = 2;
         }
+
         private void ShowUserlogs(IMonthModel month = null) {
             if (month != null) {
                 CurrentState.Month = month;

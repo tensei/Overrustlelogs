@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using Overrustlelogs.Api.Models;
 
 namespace Overrustlelogs.Views {
@@ -11,7 +9,7 @@ namespace Overrustlelogs.Views {
         public DaysView() {
             InitializeComponent();
         }
-        
+
 
         private void Filter_OnTextChanged(object sender, TextChangedEventArgs e) {
             var filterTextbox = (TextBox) sender;

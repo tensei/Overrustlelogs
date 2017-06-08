@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Overrustlelogs.Api.Interfaces;
@@ -14,12 +10,13 @@ using Overrustlelogs.Api.Models;
 namespace Overrustlelogs.Api {
     public class ApiMonths : IApiMonths {
         private readonly HttpClient _httpClient;
+
         public ApiMonths() {
             if (_httpClient == null) {
                 _httpClient = new HttpClient {
                     Timeout = TimeSpan.FromMinutes(1),
                     DefaultRequestHeaders = {
-                        UserAgent = { ProductInfoHeaderValue.Parse("Overrustlelogs-Desktop") }
+                        UserAgent = {ProductInfoHeaderValue.Parse("Overrustlelogs-Desktop")}
                     }
                 };
             }
@@ -28,6 +25,7 @@ namespace Overrustlelogs.Api {
         public async Task<List<IMonthModel>> Get(IChannelModel channel) {
             return await Get(channel.Name);
         }
+
         public async Task<List<IMonthModel>> Get(string channel) {
             var url = $"https://overrustlelogs.net/api/v1/{channel}/months.json";
             string response;

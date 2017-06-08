@@ -52,10 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CurrentState.cs" />
+    <Compile Include="Factories\ApiFactory.cs" />
+    <Compile Include="Interfaces\IViewModelFactory.cs" />
+    <Compile Include="Interfaces\IApiFactory.cs" />
     <Compile Include="Interfaces\IMultiViewUserModel.cs" />
     <Compile Include="Models\MultiViewUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModelFactory.cs" />
+    <Compile Include="Factories\ViewModelFactory.cs" />
     <Compile Include="ViewModels\ActionCommand.cs" />
     <Compile Include="ViewModels\ChannelsViewModel.cs" />
     <Compile Include="ViewModels\DaysViewModel.cs" />

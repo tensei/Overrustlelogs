@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.Remoting;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Overrustlelogs.Api.Interfaces;
@@ -12,10 +8,6 @@ using Overrustlelogs.Api.Interfaces;
 namespace Overrustlelogs.Api.Models {
     public class MessageModel : IMessageModel, INotifyPropertyChanged {
         private readonly IApiLogs _apiLogs;
-        public string Text { get; set; }
-        public string[] UnEditedText { get; set; }
-        public string Month { get; set; }
-        private string _url { get; set; }
 
         public MessageModel(string text, string month, string url, IApiLogs apiLogs) {
             _apiLogs = apiLogs;
@@ -25,8 +17,22 @@ namespace Overrustlelogs.Api.Models {
             GetLogCommand = new ActionCommand(async () => await GetLog());
         }
 
+        private string _url { get; }
+        public string Text { get; set; }
+        public string[] UnEditedText { get; set; }
+        public string Month { get; set; }
+
         public bool GetLogButtonVisibility { get; set; }
         public ICommand GetLogCommand { get; }
+
+        public void ParseLog(string search) {
+            // [2017-05-20 19:04:51 UTC] xxxx: xxxx
+            var text = UnEditedText.Where(s => s.ToLower().Contains(search.ToLower()))
+                .Aggregate(string.Empty, (current, s) => current + $"{s}\n");
+            Text = text;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private async Task GetLog() {
             Text = string.Empty;
@@ -37,15 +43,8 @@ namespace Overrustlelogs.Api.Models {
                 return;
             }
             Text = text;
-            UnEditedText = text.Split(new []{'\n'}, StringSplitOptions.RemoveEmptyEntries);
+            UnEditedText = text.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
             GetLogButtonVisibility = false;
         }
-
-        public void ParseLog(string search) {
-            // [2017-05-20 19:04:51 UTC] xxxx: xxxx
-            var text = UnEditedText.Where(s => s.ToLower().Contains(search.ToLower())).Aggregate(string.Empty, (current, s) => current + $"{s}\n");
-            Text = text;
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

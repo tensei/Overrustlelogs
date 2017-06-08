@@ -37,13 +37,13 @@
             <ItemsControl.Template>
                 <ControlTemplate>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                        <ItemsPresenter/>
+                        <ItemsPresenter />
                     </ScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel VirtualizationMode="Recycling"/>
+                    <VirtualizingStackPanel VirtualizationMode="Recycling" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -53,19 +53,22 @@
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
-                    <Button Style="{DynamicResource MaterialDesignFlatButton}" 
-                            Command="{Binding DataContext.OpenDayCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DaysView}}}"
-                            CommandParameter="{Binding}"
-                            Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
-                        <Grid VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="File" Margin="0,0,10,0" VerticalAlignment="Center"
-                                                         Foreground="White" />
-                                <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White"/>
-                            </StackPanel>
-                            <TextBlock HorizontalAlignment="Right" Foreground="Gray">open in browser</TextBlock>
-                        </Grid>
-                    </Button>
+                    <DockPanel>
+                        <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                                Command="{Binding DataContext.OpenDayCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DaysView}}}"
+                                CommandParameter="{Binding}" DockPanel.Dock="Top"
+                                Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
+                            <Grid VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="File" Margin="0,0,10,0" VerticalAlignment="Center"
+                                                             Foreground="White" />
+                                    <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White" />
+                                </StackPanel>
+                                <TextBlock HorizontalAlignment="Right" Foreground="Gray">open in browser</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Separator Background="#424242" DockPanel.Dock="Bottom" />
+                    </DockPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

@@ -30,20 +30,19 @@
                      TextChanged="Filter_OnTextChanged"
                      VerticalAlignment="Center" />
         </Grid>
-
         <ItemsControl Grid.Row="1" x:Name="MonthList" ItemsSource="{Binding MonthsList}"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch">
             <ItemsControl.Template>
                 <ControlTemplate>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                        <ItemsPresenter/>
+                        <ItemsPresenter />
                     </ScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel VirtualizationMode="Recycling"/>
+                    <VirtualizingStackPanel VirtualizationMode="Recycling" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -53,18 +52,21 @@
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
-                    <Button Style="{DynamicResource MaterialDesignFlatButton}" 
-                            Command="{Binding DataContext.SwitchToDaysCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MonthsView}}}"
-                            CommandParameter="{Binding}"
-                            Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
-                        <Grid VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center"
-                                                         Foreground="White" />
-                                <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White"/>
-                            </StackPanel>
-                        </Grid>
-                    </Button>
+                    <DockPanel>
+                        <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                                Command="{Binding DataContext.SwitchToDaysCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MonthsView}}}"
+                                CommandParameter="{Binding}" DockPanel.Dock="Top"
+                                Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
+                            <Grid VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center"
+                                                             Foreground="White" />
+                                    <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White" />
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+                        <Separator Background="#424242" DockPanel.Dock="Bottom" />
+                    </DockPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

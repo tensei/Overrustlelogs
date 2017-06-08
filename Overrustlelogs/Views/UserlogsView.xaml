@@ -26,29 +26,20 @@
                 <materialDesign:PackIcon Kind="Refresh" />
             </Button>
             <TextBox Grid.Column="1" Width="200" materialDesign:HintAssist.Hint="Filter" Text="{Binding FilterText}"
-                     VerticalAlignment="Center" PreviewKeyDown="TextBox_PreviewKeyDown" />
-            <Button Grid.Column="2" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignFlatButton}"
+                     VerticalAlignment="Center" PreviewKeyDown="TextBox_PreviewKeyDown"
+                     TextChanged="Filter_OnTextChanged" />
+            <!--<Button Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
+                    Style="{DynamicResource MaterialDesignToolButton}"
                     Command="{Binding FilterCommand}">
                 <materialDesign:PackIcon Kind="Magnify" />
-            </Button>
+            </Button>-->
             <TextBlock Margin="5,0" VerticalAlignment="Center" Grid.Column="3" HorizontalAlignment="Right"
                        Text="{Binding UsersList.Count}" />
         </Grid>
-        <ItemsControl Grid.Row="1" x:Name="DayList" ItemsSource="{Binding UsersList}"
+        <ItemsControl Grid.Row="1" x:Name="UserList" ItemsSource="{Binding UsersList}"
                       HorizontalContentAlignment="Stretch"
-                      VerticalContentAlignment="Stretch">
-            <ItemsControl.Template>
-                <ControlTemplate>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                        <ItemsPresenter/>
-                    </ScrollViewer>
-                </ControlTemplate>
-            </ItemsControl.Template>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel VirtualizationMode="Recycling"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+                      VerticalContentAlignment="Stretch"
+                      Style="{DynamicResource ItemsControlVirtualizedStyle}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <DataTemplate.Triggers>
@@ -56,19 +47,22 @@
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
-                    <Button Style="{DynamicResource MaterialDesignFlatButton}" 
-                            Command="{Binding DataContext.OpenUserlogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:UserlogsView}}}"
-                            CommandParameter="{Binding}"
-                            Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
-                        <Grid VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="File" Margin="0,0,10,0" VerticalAlignment="Center"
-                                                         Foreground="White" />
-                                <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White"/>
-                            </StackPanel>
-                            <TextBlock HorizontalAlignment="Right" Foreground="Gray">open in browser</TextBlock>
-                        </Grid>
-                    </Button>
+                    <DockPanel>
+                        <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                                Command="{Binding DataContext.OpenUserlogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:UserlogsView}}}"
+                                CommandParameter="{Binding}" DockPanel.Dock="Top"
+                                Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
+                            <Grid VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="File" Margin="0,0,10,0" VerticalAlignment="Center"
+                                                             Foreground="White" />
+                                    <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White" />
+                                </StackPanel>
+                                <TextBlock HorizontalAlignment="Right" Foreground="Gray">open in browser</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Separator Background="#424242" DockPanel.Dock="Bottom" />
+                    </DockPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

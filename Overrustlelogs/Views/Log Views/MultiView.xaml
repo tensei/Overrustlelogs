@@ -1,35 +1,35 @@
 ﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Overrustlelogs.Views.Log_Views"
-             xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:Views="clr-namespace:Overrustlelogs.Views" x:Class="Overrustlelogs.Views.Log_Views.MultiView"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="900"
-             d:DataContext="{d:DesignInstance {x:Type viewModel:LogCollectionViewModel}, IsDesignTimeCreatable=False}">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Overrustlelogs.Views.Log_Views"
+    xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:Views="clr-namespace:Overrustlelogs.Views" x:Class="Overrustlelogs.Views.Log_Views.MultiView"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="900"
+    d:DataContext="{d:DesignInstance {x:Type viewModel:LogCollectionViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <materialDesign:ColorZone Mode="Standard" Padding="8,4">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox  Width="200" BorderThickness="0" Text="{Binding User}"
-                          materialDesign:HintAssist.Hint="Username"
-                          VerticalAlignment="Center" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-                <ComboBox Grid.Column="2" Width="200" BorderThickness="0" ItemsSource="{Binding Channels}" 
+                <TextBox Width="200" BorderThickness="0" Text="{Binding User}"
+                         materialDesign:HintAssist.Hint="Username"
+                         VerticalAlignment="Center" PreviewKeyDown="TextBox_PreviewKeyDown" />
+                <ComboBox Grid.Column="2" Width="200" BorderThickness="0" ItemsSource="{Binding Channels}"
                           SelectedItem="{Binding SelectedChannel}"
                           materialDesign:HintAssist.Hint="Channel"
                           PreviewKeyDown="ComboBox_PreviewKeyDown"
@@ -40,10 +40,11 @@
                         </ItemsPanelTemplate>
                     </ComboBox.ItemsPanel>
                 </ComboBox>
-                <Button Grid.Column="4" Command="{Binding AddUserCommand}" Style="{DynamicResource MaterialDesignFlatButton}" Content="Add User"/>
+                <Button Grid.Column="4" Command="{Binding AddUserCommand}"
+                        Style="{DynamicResource MaterialDesignFlatButton}" Content="Add User" />
                 <StackPanel Grid.Column="6" Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock>Single</TextBlock>
-                    <ToggleButton Margin="10,0" IsChecked="{Binding ViewIndex}"/>
+                    <ToggleButton Margin="10,0" IsChecked="{Binding ViewIndex}" />
                     <TextBlock>Multi</TextBlock>
                 </StackPanel>
             </Grid>
@@ -51,8 +52,8 @@
         <ItemsControl Grid.Row="1" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" Margin="0,5,0,0">
             <ItemsControl.Template>
                 <ControlTemplate>
-                    <ScrollViewer VerticalScrollBarVisibility="Visible" >
-                        <ItemsPresenter/>
+                    <ScrollViewer VerticalScrollBarVisibility="Visible">
+                        <ItemsPresenter />
                     </ScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
@@ -67,43 +68,44 @@
                         <Expander.HeaderTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontWeight="Bold" Text="User:"/>
-                                    <TextBlock Margin="10,0" Text="{Binding User}"/>
-                                    <TextBlock FontWeight="Bold" Text="Channel:"/>
-                                    <TextBlock Margin="10,0" Text="{Binding Channel}"/>
+                                    <TextBlock FontWeight="Bold" Text="User:" />
+                                    <TextBlock Margin="10,0" Text="{Binding User}" />
+                                    <TextBlock FontWeight="Bold" Text="Channel:" />
+                                    <TextBlock Margin="10,0" Text="{Binding Channel}" />
                                 </StackPanel>
                             </DataTemplate>
                         </Expander.HeaderTemplate>
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <materialDesign:ColorZone Background="#282828" Padding="4">
                                 <Grid Margin="0,0,0,4">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <Button Grid.Column="0" Style="{DynamicResource MaterialDesignFlatButton}"
                                             VerticalAlignment="Center"
                                             Command="{Binding SelectedMonth.GetLogCommand}">
-                                        <materialDesign:PackIcon Kind="Refresh"/>
+                                        <materialDesign:PackIcon Kind="Refresh" />
                                     </Button>
                                     <TextBox Grid.Column="1" Margin="10,0" VerticalAlignment="Center"
                                              TextChanged="Search_OnTextChanged"
-                                             materialDesign:HintAssist.Hint="Search" Width="200"/>
+                                             materialDesign:HintAssist.Hint="Search" Width="200" />
                                     <Grid Grid.Column="3">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <ComboBox  SelectedItem="{Binding SelectedMonth}"
-                                                    ItemsSource="{Binding Months}" HorizontalAlignment="Center" Width="150">
+                                        <ComboBox SelectedItem="{Binding SelectedMonth}"
+                                                  ItemsSource="{Binding Months}" HorizontalAlignment="Center"
+                                                  Width="150">
                                             <ComboBox.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <VirtualizingStackPanel />
@@ -111,30 +113,31 @@
                                             </ComboBox.ItemsPanel>
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Month}"/>
+                                                    <TextBlock Text="{Binding Month}" />
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </Grid>
-                                    <Button Grid.Column="4" Style="{DynamicResource ResourceKey=MaterialDesignFlatButton}"
+                                    <Button Grid.Column="4"
+                                            Style="{DynamicResource ResourceKey=MaterialDesignFlatButton}"
                                             ToolTip="Remove User"
                                             Command="{Binding DataContext.RemoveUserCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:LogCollectionView}}}"
                                             CommandParameter="{Binding}">
-                                        <materialDesign:PackIcon Kind="Close"/>
+                                        <materialDesign:PackIcon Kind="Close" />
                                     </Button>
                                 </Grid>
                             </materialDesign:ColorZone>
                             <TextBox Grid.Row="1" Text="{Binding SelectedMonth.Text}" FontSize="16" TextWrapping="Wrap"
-                                         IsReadOnly="True" Margin="10,0,10,5" MaxHeight="500" Background="#212121"
-                                         VerticalScrollBarVisibility="Auto"
-                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden">
+                                     IsReadOnly="True" Margin="10,0,10,5" MaxHeight="500" Background="#212121"
+                                     VerticalScrollBarVisibility="Auto"
+                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden">
                                 <TextBox.Foreground>
-                                    <SolidColorBrush Color="White" Opacity="0.8"/>
+                                    <SolidColorBrush Color="White" Opacity="0.8" />
                                 </TextBox.Foreground>
                             </TextBox>
-                            <ProgressBar Grid.Row="1" Style="{DynamicResource MaterialDesignCircularProgressBar}" 
-                                             Height="100" Width="100" IsIndeterminate="True"
-                                             Visibility="{Binding SelectedMonth.GetLogButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                            <ProgressBar Grid.Row="1" Style="{DynamicResource MaterialDesignCircularProgressBar}"
+                                         Height="100" Width="100" IsIndeterminate="True"
+                                         Visibility="{Binding SelectedMonth.GetLogButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
                         </Grid>
                     </Expander>
                 </DataTemplate>

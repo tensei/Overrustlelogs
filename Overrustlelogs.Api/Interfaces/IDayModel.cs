@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Overrustlelogs.Api.Interfaces {
+﻿namespace Overrustlelogs.Api.Interfaces {
     public interface IDayModel {
         string Name { get; }
         string Url { get; }

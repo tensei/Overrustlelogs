@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -13,13 +10,10 @@ using Overrustlelogs.ViewModels.Models;
 
 namespace Overrustlelogs.ViewModels.ViewModels {
     public class LogCollectionViewModel : INotifyPropertyChanged {
-        private readonly IApiLogs _apiLogs;
         private readonly IApiChannels _apiChannels;
+        private readonly IApiLogs _apiLogs;
         private IMessageModel _selectedMonth;
-        public string User { get; set; }
-        public ObservableCollection<IMessageModel> MonthLogs { get; set; }
-        public ObservableCollection<IMultiViewUserModel> Users { get; set; }
-        public ObservableCollection<string> Channels { get; set; }
+
         public LogCollectionViewModel(IApiLogs apiLogs, IApiChannels apiChannels) {
             _apiLogs = apiLogs;
             _apiChannels = apiChannels;
@@ -33,10 +27,15 @@ namespace Overrustlelogs.ViewModels.ViewModels {
                 GetChannel().ConfigureAwait(false);
                 return;
             }
-            Channels= new ObservableCollection<string>();
+            Channels = new ObservableCollection<string>();
             Users = new ObservableCollection<IMultiViewUserModel>();
             CurrentState.Channels.ForEach(c => Channels.Add(c.Name));
         }
+
+        public string User { get; set; }
+        public ObservableCollection<IMessageModel> MonthLogs { get; set; }
+        public ObservableCollection<IMultiViewUserModel> Users { get; set; }
+        public ObservableCollection<string> Channels { get; set; }
 
         public ICommand SubmitCommand { get; }
         public ICommand RemoveUserCommand { get; }
@@ -57,8 +56,14 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public int MonthIndex { get; set; }
         public int ViewIndex { get; set; }
 
+        public ICommand NextMonthCommand { get; }
+        public ICommand PrevMonthCommand { get; }
+        public ICommand AddUserCommand { get; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private async Task GetMessages() {
-            if (string.IsNullOrWhiteSpace(User)|| string.IsNullOrWhiteSpace(SelectedChannel)) {
+            if (string.IsNullOrWhiteSpace(User) || string.IsNullOrWhiteSpace(SelectedChannel)) {
                 return;
             }
             MonthLogs = new ObservableCollection<IMessageModel>();
@@ -69,10 +74,12 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             var monthsList = await _apiLogs.Get(User, SelectedChannel);
             ProgressbarVisibility = Visibility.Collapsed;
             monthsList.ForEach(MonthLogs.Add);
-            SelectedMonth = monthsList.FirstOrDefault(m => m.Month == SelectedMonth?.Month) ?? monthsList.FirstOrDefault();
+            SelectedMonth = monthsList.FirstOrDefault(m => m.Month == SelectedMonth?.Month) ??
+                            monthsList.FirstOrDefault();
         }
+
         private async Task AddUser() {
-            if (string.IsNullOrWhiteSpace(User)|| string.IsNullOrWhiteSpace(SelectedChannel)) {
+            if (string.IsNullOrWhiteSpace(User) || string.IsNullOrWhiteSpace(SelectedChannel)) {
                 return;
             }
             if (SelectedChannel != "Destinygg") {
@@ -94,7 +101,6 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             Status = text;
         }
 
-        public ICommand NextMonthCommand { get; }
         private void NextMonth() {
             if (MonthLogs == null) {
                 return;
@@ -103,8 +109,6 @@ namespace Overrustlelogs.ViewModels.ViewModels {
                 MonthIndex--;
             }
         }
-        public ICommand PrevMonthCommand { get; }
-
 
 
         private void PrevMonth() {
@@ -116,8 +120,5 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         private void RenoveUser(IMultiViewUserModel multiViewUser) {
             Users.Remove(multiViewUser);
         }
-        public ICommand AddUserCommand { get; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

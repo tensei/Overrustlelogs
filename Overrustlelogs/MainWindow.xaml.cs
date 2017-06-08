@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Overrustlelogs.ViewModels;
+using MaterialDesignThemes.Wpf;
+using Overrustlelogs.ViewModels.Factories;
 using Overrustlelogs.ViewModels.ViewModels;
 
 namespace Overrustlelogs {
@@ -21,9 +12,10 @@ namespace Overrustlelogs {
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow {
-        public MainWindow(ViewModelFactory viewModelFactory) {
+        public MainWindow(ViewModelFactory viewModelFactory, SnackbarMessageQueue snackbarMessageQueue) {
             InitializeComponent();
             DataContext = viewModelFactory.CreateMainWindowViewModel;
+            SnackbarMessage.MessageQueue = snackbarMessageQueue;
         }
 
         private void CurrentUrl_OnClick(object sender, RoutedEventArgs e) {
@@ -52,6 +44,11 @@ namespace Overrustlelogs {
             catch (Exception ex) {
                 Console.WriteLine(ex);
             }
+        }
+
+        private void Grid_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e) {
+            var datacontext = (MainWindowViewModel) DataContext;
+            datacontext.Back();
         }
     }
 }

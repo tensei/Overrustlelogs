@@ -31,18 +31,18 @@
                        Text="{Binding ChannelList.Count}" />
         </Grid>
         <ItemsControl Grid.Row="1" x:Name="ChannelList" ItemsSource="{Binding ChannelList}"
-                 HorizontalContentAlignment="Stretch"
-                 VerticalContentAlignment="Stretch">
+                      HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Stretch">
             <ItemsControl.Template>
                 <ControlTemplate>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                        <ItemsPresenter/>
+                        <ItemsPresenter />
                     </ScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel VirtualizationMode="Recycling"/>
+                    <VirtualizingStackPanel VirtualizationMode="Recycling" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -52,25 +52,28 @@
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
-                    <Button Style="{DynamicResource MaterialDesignFlatButton}" 
-                            Command="{Binding DataContext.SwitchToMonthCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ChannelsView}}}"
-                            CommandParameter="{Binding}"
-                            Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
-                        <Grid VerticalAlignment="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center"
-                                                         Foreground="White" />
-                                <TextBlock FontSize="16" Foreground="White">
-                                    <Run Text="{Binding Name}" />
-                                    <Run Text="chatlog" />
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>                        
-                    </Button>
+                    <DockPanel>
+                        <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                                Command="{Binding DataContext.SwitchToMonthCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ChannelsView}}}"
+                                CommandParameter="{Binding}" DockPanel.Dock="Top"
+                                Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Folder" Margin="0,0,10,0" VerticalAlignment="Center"
+                                                             Foreground="White" />
+                                    <TextBlock FontSize="16" Foreground="White">
+                                        <Run Text="{Binding Name}" />
+                                        <Run Text="chatlog" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+                        <Separator Background="#424242" DockPanel.Dock="Bottom" />
+                    </DockPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

@@ -15,10 +15,10 @@
                       Height="650" Width="925" BorderBrush="Black" NonActiveBorderBrush="Black"
                       WindowTitleBrush="#FFC33E00"
                       BorderThickness="1" NonActiveWindowTitleBrush="#FFC33E00"
-                      Background="#212121" 
+                      Background="#212121"
                       TextElement.FontSize="14"
                       FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-                      d:DataContext="{d:DesignInstance {x:Type viewModel:MainWindowViewModel}, IsDesignTimeCreatable=False}">
+                      d:DataContext="{d:DesignInstance {x:Type viewModel:MainWindowViewModel}, IsDesignTimeCreatable=True}">
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <Button Command="{Binding BackCommand}">
@@ -47,7 +47,7 @@
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <materialDesign:DialogHost>
-        <Grid>
+        <Grid MouseRightButtonUp="Grid_OnMouseRightButtonUp">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="37" />
                 <ColumnDefinition Width="*" />
@@ -102,7 +102,8 @@
                 <views:LogCollectionView DataContext="{Binding LogsDataContext}" />
                 <views:MentionsView DataContext="{Binding MentionsDataContext}" />
             </materialDesign:Transitioner>
+            <materialDesign:Snackbar x:Name="SnackbarMessage" Grid.Row="1" Grid.Column="1"
+                                     HorizontalAlignment="Right" Background="#FFC33E00" Foreground="White" />
         </Grid>
     </materialDesign:DialogHost>
-
 </controls:MetroWindow>

@@ -13,10 +13,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
     public class MentionsViewModel : INotifyPropertyChanged {
         private readonly IApiChannels _apiChannels;
         private readonly IApiMentions _apiMentions;
-        public string User { get; set; }
-        public string Text { get; set; }
-        public string[] UnEditedText { get; set; }
-        public ObservableCollection<string> Channels { get; set; }
+
         public MentionsViewModel(IApiChannels apiChannels, IApiMentions apiMentions) {
             _apiChannels = apiChannels;
             _apiMentions = apiMentions;
@@ -31,16 +28,23 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             CurrentState.Channels.ForEach(c => Channels.Add(c.Name));
         }
 
+        public string User { get; set; }
+        public string Text { get; set; }
+        public string[] UnEditedText { get; set; }
+        public ObservableCollection<string> Channels { get; set; }
+
         public ICommand SubmitCommand { get; }
-        
+
 
         public string SelectedChannel { get; set; }
         public Visibility ProgressbarVisibility { get; set; } = Visibility.Collapsed;
 
         public DateTime SelectedDate { get; set; }
 
-        public List<int> Limits => new List<int>{ 0, 1, 10, 100, 1000, 10000 };
+        public List<int> Limits => new List<int> {0, 1, 10, 100, 1000, 10000};
         public int SelectedLimit { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private async Task GetMessages() {
             if (string.IsNullOrWhiteSpace(User) || string.IsNullOrWhiteSpace(SelectedChannel)) {
                 return;
@@ -54,7 +58,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
                 date = null;
             }
             int? limit = SelectedLimit;
-            if (limit== 0) {
+            if (limit == 0) {
                 limit = null;
             }
             var mentions = await _apiMentions.Get(SelectedChannel, User, limit, date);
@@ -66,7 +70,6 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             var sb = new StringBuilder();
             foreach (var mentionModel in mentions) {
                 sb.AppendLine($"[{mentionModel.Date}] {mentionModel.nick}: {mentionModel.text}");
-
             }
             Text = sb.ToString();
             UnEditedText = sb.ToString().Split('\n');
@@ -80,9 +83,9 @@ namespace Overrustlelogs.ViewModels.ViewModels {
 
         public void ParseLog(string search) {
             // [2017-05-20 19:04:51 UTC] xxxx: xxxx
-            var text = UnEditedText.Where(s => s.ToLower().Contains(search.ToLower())).Aggregate(string.Empty, (current, s) => current + $"{s}\n");
+            var text = UnEditedText.Where(s => s.ToLower().Contains(search.ToLower()))
+                .Aggregate(string.Empty, (current, s) => current + $"{s}\n");
             Text = text;
         }
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
