@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -30,6 +31,9 @@ namespace Overrustlelogs.ViewModels.ViewModels {
 
         private async Task GetChannels() {
             var channels = await _channels.Get();
+            if (channels == null) {
+                return;
+            }
             ChannelList = new ObservableCollection<ChannelModel>(channels);
             CurrentState.Channels = channels;
         }

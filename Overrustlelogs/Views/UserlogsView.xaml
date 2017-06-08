@@ -18,7 +18,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Style="{DynamicResource MaterialDesignFlatButton}"
@@ -26,14 +25,8 @@
                 <materialDesign:PackIcon Kind="Refresh" />
             </Button>
             <TextBox Grid.Column="1" Width="200" materialDesign:HintAssist.Hint="Filter" Text="{Binding FilterText}"
-                     VerticalAlignment="Center" PreviewKeyDown="TextBox_PreviewKeyDown"
-                     TextChanged="Filter_OnTextChanged" />
-            <!--<Button Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
-                    Style="{DynamicResource MaterialDesignToolButton}"
-                    Command="{Binding FilterCommand}">
-                <materialDesign:PackIcon Kind="Magnify" />
-            </Button>-->
-            <TextBlock Margin="5,0" VerticalAlignment="Center" Grid.Column="3" HorizontalAlignment="Right"
+                     VerticalAlignment="Center" TextChanged="Filter_OnTextChanged" />
+            <TextBlock Margin="5,0" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right"
                        Text="{Binding UsersList.Count}" />
         </Grid>
         <ItemsControl Grid.Row="1" x:Name="UserList" ItemsSource="{Binding UsersList}"

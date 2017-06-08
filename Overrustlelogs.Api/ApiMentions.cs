@@ -9,9 +9,11 @@ using Overrustlelogs.Api.Models;
 
 namespace Overrustlelogs.Api {
     public class ApiMentions : IApiMentions {
+        private readonly Action<string> _snackbarMessageQueue;
         private readonly HttpClient _httpClient;
 
-        public ApiMentions() {
+        public ApiMentions(Action<string> snackbarMessageQueue) {
+            _snackbarMessageQueue = snackbarMessageQueue;
             if (_httpClient == null) {
                 _httpClient = new HttpClient {
                     Timeout = TimeSpan.FromMinutes(1),
@@ -40,7 +42,8 @@ namespace Overrustlelogs.Api {
                 var mentions = JsonConvert.DeserializeObject<List<MentionModel>>(response);
                 return mentions;
             }
-            catch (Exception) {
+            catch (Exception e) {
+                _snackbarMessageQueue(e.Message);
                 return null;
             }
         }

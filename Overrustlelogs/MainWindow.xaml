@@ -12,7 +12,7 @@
                       mc:Ignorable="d"
                       SaveWindowPosition="True" Title="{Binding Title}" TitleCharacterCasing="Normal"
                       TitleForeground="White"
-                      Height="650" Width="925" BorderBrush="Black" NonActiveBorderBrush="Black"
+                      Height="850" Width="925" BorderBrush="Black" NonActiveBorderBrush="Black"
                       WindowTitleBrush="#FFC33E00"
                       BorderThickness="1" NonActiveWindowTitleBrush="#FFC33E00"
                       Background="#212121"

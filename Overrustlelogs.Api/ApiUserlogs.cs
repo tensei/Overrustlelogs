@@ -9,9 +9,11 @@ using Overrustlelogs.Api.Models;
 
 namespace Overrustlelogs.Api {
     public class ApiUserlogs : IApiUserlogs {
+        private readonly Action<string> _snackbarMessageQueue;
         private readonly HttpClient _httpClient;
 
-        public ApiUserlogs() {
+        public ApiUserlogs(Action<string> snackbarMessageQueue) {
+            _snackbarMessageQueue = snackbarMessageQueue;
             if (_httpClient == null) {
                 _httpClient = new HttpClient {
                     Timeout = TimeSpan.FromMinutes(1),
@@ -28,7 +30,8 @@ namespace Overrustlelogs.Api {
             try {
                 response = await _httpClient.GetStringAsync(url);
             }
-            catch (Exception) {
+            catch (Exception e) {
+                _snackbarMessageQueue(e.Message);
                 return null;
             }
             var userList = JsonConvert.DeserializeObject<List<string>>(response);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -32,6 +33,9 @@ namespace Overrustlelogs.ViewModels.ViewModels {
 
         private async Task GetDays() {
             var days = await _apiDays.Get(CurrentState.Channel, CurrentState.Month);
+            if (days == null) {
+                return;
+            }
             CurrentState.Month.Days = new ObservableCollection<IDayModel>(days);
             DaysList = CurrentState.Month.Days;
         }

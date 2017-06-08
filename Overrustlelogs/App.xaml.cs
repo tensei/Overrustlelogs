@@ -33,9 +33,9 @@ namespace Overrustlelogs {
 
         private void SnackbarQueueMessage(string text) {
             if (_snackbarMessageQueue == null) {
-                _snackbarMessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(3));
+                _snackbarMessageQueue = new SnackbarMessageQueue();
             }
-            _snackbarMessageQueue.Enqueue(text);
+            _snackbarMessageQueue.Enqueue(text, true);
         }
     }
 }

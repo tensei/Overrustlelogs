@@ -19,7 +19,6 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             CurrentState.SwitchViewToMonth = ShowMonths;
             CurrentState.SwitchViewToDays = ShowDays;
             CurrentState.SwitchViewToUserlogs = ShowUserlogs;
-            snackbarMessage("test");
         }
 
         public int ViewIndex { get; set; }
