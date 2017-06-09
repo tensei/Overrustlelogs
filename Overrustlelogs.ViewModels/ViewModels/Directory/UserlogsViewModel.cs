@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,19 +7,22 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Overrustlelogs.Api.Interfaces;
 using Overrustlelogs.Api.Models;
+using Overrustlelogs.ViewModels.Utils;
 
-namespace Overrustlelogs.ViewModels.ViewModels {
+namespace Overrustlelogs.ViewModels.ViewModels.Directory {
     public class UserlogsViewModel : INotifyPropertyChanged {
         private readonly IApiUserlogs _apiUserlogs;
+        private readonly CurrentState _currentState;
 
 
-        public UserlogsViewModel(Action<string, string> changeTitle, IApiUserlogs apiUserlogs) {
+        public UserlogsViewModel(Action<string, string> changeTitle, IApiUserlogs apiUserlogs, CurrentState currentState) {
             _apiUserlogs = apiUserlogs;
+            _currentState = currentState;
             RefreshUsersCommand = new ActionCommand(async () => await GetUsers());
             OpenUserlogCommand = new ActionCommand(u => OpenLog((UserModel) u));
-            changeTitle(CurrentState.Channel.Name, CurrentState.Month.Name + "/userlogs");
-            if (CurrentState.Month.Users != null) {
-                UsersList = CurrentState.Month.Users;
+            changeTitle(_currentState.Channel.Name, _currentState.Month.Name + "/userlogs");
+            if (_currentState.Month.Users != null) {
+                UsersList = _currentState.Month.Users;
                 return;
             }
             GetUsers().ConfigureAwait(false);
@@ -35,13 +37,13 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private async Task GetUsers() {
-            var users = await _apiUserlogs.Get(CurrentState.Channel, CurrentState.Month);
+            var users = await _apiUserlogs.Get(_currentState.Channel, _currentState.Month);
             if (users == null) {
                 return;
             }
-            CurrentState.Month.Users = new ObservableCollection<IUserModel>(users);
-            _usersList = CurrentState.Month.Users;
-            UsersList = CurrentState.Month.Users;
+            _currentState.Month.Users = new ObservableCollection<IUserModel>(users);
+            _usersList = _currentState.Month.Users;
+            UsersList = _currentState.Month.Users;
         }
 
         private void OpenLog(IUserModel user) {

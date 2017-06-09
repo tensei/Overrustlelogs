@@ -8,5 +8,6 @@ namespace Overrustlelogs.Api.Interfaces {
         ICommand GetLogCommand { get; }
         bool GetLogButtonVisibility { get; set; }
         void ParseLog(string search);
+        string Url { get; }
     }
 }

@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:Overrustlelogs.Views"
              xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:directory="clr-namespace:Overrustlelogs.ViewModels.ViewModels.Directory;assembly=Overrustlelogs.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="900"
-             d:DataContext="{d:DesignInstance {x:Type viewModel:ChannelsViewModel}, IsDesignTimeCreatable=False}">
+             d:DataContext="{d:DesignInstance {x:Type directory:ChannelsViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

@@ -8,24 +8,27 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Overrustlelogs.Api.Interfaces;
+using Overrustlelogs.ViewModels.Utils;
 
 namespace Overrustlelogs.ViewModels.ViewModels {
     public class MentionsViewModel : INotifyPropertyChanged {
         private readonly IApiChannels _apiChannels;
         private readonly IApiMentions _apiMentions;
+        private readonly CurrentState _currentState;
 
-        public MentionsViewModel(IApiChannels apiChannels, IApiMentions apiMentions) {
+        public MentionsViewModel(IApiChannels apiChannels, IApiMentions apiMentions, CurrentState currentState) {
             _apiChannels = apiChannels;
             _apiMentions = apiMentions;
+            _currentState = currentState;
             SubmitCommand = new ActionCommand(async () => await GetMessages());
             SelectedDate = DateTime.Now;
-            if (CurrentState.Channels == null) {
+            if (_currentState.Channels == null) {
                 Channels = new ObservableCollection<string>();
                 GetChannel().ConfigureAwait(false);
                 return;
             }
             Channels = new ObservableCollection<string>();
-            CurrentState.Channels.ForEach(c => Channels.Add(c.Name));
+            _currentState.Channels.ForEach(c => Channels.Add(c.Name));
         }
 
         public string User { get; set; }

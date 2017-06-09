@@ -3,22 +3,29 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Overrustlelogs.Api.Interfaces;
 using Overrustlelogs.ViewModels.Factories;
+using Overrustlelogs.ViewModels.Utils;
+using Overrustlelogs.ViewModels.ViewModels.Directory;
+using Overrustlelogs.ViewModels.ViewModels.Stalk;
 
 namespace Overrustlelogs.ViewModels.ViewModels {
     public class MainWindowViewModel : INotifyPropertyChanged {
         private readonly ViewModelFactory _viewModelFactory;
+        private readonly Action<string> _snackbarMessage;
+        private readonly CurrentState _currentState;
 
-        public MainWindowViewModel(ViewModelFactory viewModelFactory, Action<string> snackbarMessage) {
+        public MainWindowViewModel(ViewModelFactory viewModelFactory, Action<string> snackbarMessage, CurrentState currentState) {
             SwitchViewCommand = new ActionCommand(i => SwitchViewTo((string) i));
             ForwardCommand = new ActionCommand(Forward);
             BackCommand = new ActionCommand(Back);
             _viewModelFactory = viewModelFactory;
+            _snackbarMessage = snackbarMessage;
+            _currentState = currentState;
             ChannelsDataContext = _viewModelFactory.CreateChannelsViewModel;
-            LogsDataContext = _viewModelFactory.CreateLogsViewModel();
+            LogsDataContext = _viewModelFactory.CreateStalkViewModel();
             MentionsDataContext = _viewModelFactory.CreateMentionsViewModel();
-            CurrentState.SwitchViewToMonth = ShowMonths;
-            CurrentState.SwitchViewToDays = ShowDays;
-            CurrentState.SwitchViewToUserlogs = ShowUserlogs;
+            _currentState.SwitchViewToMonth = ShowMonths;
+            _currentState.SwitchViewToDays = ShowDays;
+            _currentState.SwitchViewToUserlogs = ShowUserlogs;
         }
 
         public int ViewIndex { get; set; }
@@ -28,7 +35,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
         public ChannelsViewModel ChannelsDataContext { get; set; }
         public MonthsViewModel MonthsDataContext { get; set; }
         public DaysViewModel DaysDataContext { get; set; }
-        public LogCollectionViewModel LogsDataContext { get; set; }
+        public StalkViewModel LogsDataContext { get; set; }
         public UserlogsViewModel UserlogsDataContext { get; set; }
         public MentionsViewModel MentionsDataContext { get; set; }
 
@@ -48,11 +55,11 @@ namespace Overrustlelogs.ViewModels.ViewModels {
                     break;
                 case 2:
                     ViewIndex--;
-                    ChangeTitle(CurrentState.Channel.Name);
+                    ChangeTitle(_currentState.Channel.Name);
                     break;
                 case 3:
                     ViewIndex--;
-                    ChangeTitle(CurrentState.Channel.Name, CurrentState.Month.Name);
+                    ChangeTitle(_currentState.Channel.Name, _currentState.Month.Name);
                     break;
             }
         }
@@ -61,33 +68,33 @@ namespace Overrustlelogs.ViewModels.ViewModels {
             var currentIndex = ViewIndex;
             switch (currentIndex) {
                 case 0:
-                    if (CurrentState.Channel == null) {
+                    if (_currentState.Channel == null) {
                         break;
                     }
                     ViewIndex++;
-                    ChangeTitle(CurrentState.Channel.Name);
+                    ChangeTitle(_currentState.Channel.Name);
                     break;
                 case 1:
-                    if (CurrentState.Month == null) {
+                    if (_currentState.Month == null) {
                         break;
                     }
                     ViewIndex++;
-                    ChangeTitle(CurrentState.Channel.Name, CurrentState.Month.Name);
+                    ChangeTitle(_currentState.Channel.Name, _currentState.Month.Name);
                     break;
                 case 2:
-                    if (CurrentState.Month == null) {
+                    if (_currentState.Month == null) {
                         break;
                     }
                     ViewIndex++;
-                    ChangeTitle(CurrentState.Channel.Name, CurrentState.Month.Name + "/userlogs");
+                    ChangeTitle(_currentState.Channel.Name, _currentState.Month.Name + "/userlogs");
                     break;
             }
         }
 
         private void ShowMonths(IChannelModel channel = null) {
             if (channel != null) {
-                CurrentState.Channel = channel;
-                CurrentState.Month = null;
+                _currentState.Channel = channel;
+                _currentState.Month = null;
             }
             MonthsDataContext = _viewModelFactory.CreateMonthsViewModel(ChangeTitle);
             ViewIndex = 1;
@@ -95,7 +102,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
 
         private void ShowDays(IMonthModel month = null) {
             if (month != null) {
-                CurrentState.Month = month;
+                _currentState.Month = month;
             }
             DaysDataContext = _viewModelFactory.CreateDaysViewModel(ChangeTitle);
             ViewIndex = 2;
@@ -103,7 +110,7 @@ namespace Overrustlelogs.ViewModels.ViewModels {
 
         private void ShowUserlogs(IMonthModel month = null) {
             if (month != null) {
-                CurrentState.Month = month;
+                _currentState.Month = month;
             }
             UserlogsDataContext = _viewModelFactory.CreateUserlogsViewModel(ChangeTitle);
             ViewIndex = 3;

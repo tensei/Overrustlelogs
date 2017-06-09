@@ -12,7 +12,7 @@
                       mc:Ignorable="d"
                       SaveWindowPosition="True" Title="{Binding Title}" TitleCharacterCasing="Normal"
                       TitleForeground="White"
-                      Height="850" Width="925" BorderBrush="Black" NonActiveBorderBrush="Black"
+                      Height="800" Width="925" BorderBrush="Black" NonActiveBorderBrush="Black"
                       WindowTitleBrush="#FFC33E00"
                       BorderThickness="1" NonActiveWindowTitleBrush="#FFC33E00"
                       Background="#212121"
@@ -75,7 +75,7 @@
                     <Button Grid.Row="1" Style="{DynamicResource MaterialDesignToolButton}"
                             materialDesign:RippleAssist.ClipToBounds="True"
                             materialDesign:RippleAssist.IsCentered="True"
-                            Height="37" Width="37" ToolTip="Userlogs"
+                            Height="37" Width="37" ToolTip="Stalk"
                             Command="{Binding SwitchViewCommand}" CommandParameter="4">
                         <materialDesign:PackIcon Kind="Account" Width="28" Height="28" />
                     </Button>

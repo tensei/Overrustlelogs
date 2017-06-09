@@ -2,6 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Input;
 using Overrustlelogs.ViewModels.ViewModels;
+using Overrustlelogs.ViewModels.ViewModels.Directory;
 
 namespace Overrustlelogs.Views {
     /// <summary>

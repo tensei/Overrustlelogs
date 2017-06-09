@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:Overrustlelogs.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
+             xmlns:directory="clr-namespace:Overrustlelogs.ViewModels.ViewModels.Directory;assembly=Overrustlelogs.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance {x:Type viewModel:DaysViewModel}, IsDesignTimeCreatable=False}">
+             d:DataContext="{d:DesignInstance {x:Type directory:DaysViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

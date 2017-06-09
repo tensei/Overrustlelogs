@@ -13,11 +13,11 @@ namespace Overrustlelogs.Api.Models {
             _apiLogs = apiLogs;
             Text = text;
             Month = month;
-            _url = url;
+            Url = url;
             GetLogCommand = new ActionCommand(async () => await GetLog());
         }
 
-        private string _url { get; }
+        public string Url { get; }
         public string Text { get; set; }
         public string[] UnEditedText { get; set; }
         public string Month { get; set; }
@@ -27,8 +27,10 @@ namespace Overrustlelogs.Api.Models {
 
         public void ParseLog(string search) {
             // [2017-05-20 19:04:51 UTC] xxxx: xxxx
-            var text = UnEditedText.Where(s => s.ToLower().Contains(search.ToLower()))
-                .Aggregate(string.Empty, (current, s) => current + $"{s}\n");
+            var text = string.Empty;
+            foreach (var s in UnEditedText) {
+                if (s.ToLower().Contains(search.ToLower())) text = text + $"{s}\n";
+            }
             Text = text;
         }
 
@@ -37,7 +39,7 @@ namespace Overrustlelogs.Api.Models {
         private async Task GetLog() {
             Text = string.Empty;
             GetLogButtonVisibility = true;
-            var text = await _apiLogs.GetLogString(_url);
+            var text = await _apiLogs.GetLogString(Url);
             if (text == null) {
                 Text = "Error try again";
                 return;

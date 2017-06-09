@@ -3,6 +3,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Overrustlelogs.ViewModels.Models;
 using Overrustlelogs.ViewModels.ViewModels;
+using Overrustlelogs.ViewModels.ViewModels.Stalk;
 
 namespace Overrustlelogs.Views.Log_Views {
     /// <summary>
@@ -18,7 +19,7 @@ namespace Overrustlelogs.Views.Log_Views {
                 return;
             }
             BindingOperations.GetBindingExpression((TextBox) sender, TextBox.TextProperty)?.UpdateSource();
-            var datactx = (LogCollectionViewModel) DataContext;
+            var datactx = (StalkMultiViewModel) DataContext;
             datactx.AddUserCommand.Execute(null);
         }
 
@@ -27,7 +28,7 @@ namespace Overrustlelogs.Views.Log_Views {
                 return;
             }
             BindingOperations.GetBindingExpression((ComboBox) sender, ComboBox.TextProperty)?.UpdateSource();
-            var datactx = (LogCollectionViewModel) DataContext;
+            var datactx = (StalkMultiViewModel) DataContext;
             datactx.AddUserCommand.Execute(null);
         }
 
@@ -36,6 +37,11 @@ namespace Overrustlelogs.Views.Log_Views {
             //BindingOperations.GetBindingExpression(textbox, TextBox.TextProperty)?.UpdateSource();
             var datactx = (MultiViewUserModel) textbox.DataContext;
             datactx?.SelectedMonth?.ParseLog(textbox.Text);
+        }
+
+        private void LogTextBox_OnTextChanged(object sender, TextChangedEventArgs e) {
+            var textbox = sender as TextBox;
+            textbox?.ScrollToEnd();
         }
     }
 }

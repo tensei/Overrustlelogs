@@ -6,10 +6,12 @@
     xmlns:local="clr-namespace:Overrustlelogs.Views.Log_Views"
     xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:Views="clr-namespace:Overrustlelogs.Views" x:Class="Overrustlelogs.Views.Log_Views.MultiView"
+    xmlns:Views="clr-namespace:Overrustlelogs.Views"
+    xmlns:stalk="clr-namespace:Overrustlelogs.ViewModels.ViewModels.Stalk;assembly=Overrustlelogs.ViewModels"
+    x:Class="Overrustlelogs.Views.Log_Views.MultiView"
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="900"
-    d:DataContext="{d:DesignInstance {x:Type viewModel:LogCollectionViewModel}, IsDesignTimeCreatable=False}">
+    d:DataContext="{d:DesignInstance {x:Type stalk:StalkMultiViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -44,12 +46,12 @@
                         Style="{DynamicResource MaterialDesignFlatButton}" Content="Add User" />
                 <StackPanel Grid.Column="6" Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock>Single</TextBlock>
-                    <ToggleButton Margin="10,0" IsChecked="{Binding ViewIndex}" />
+                    <ToggleButton Margin="10,0" IsChecked="{Binding DataContext.ViewIndex, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:LogCollectionView}}}" />
                     <TextBlock>Multi</TextBlock>
                 </StackPanel>
             </Grid>
         </materialDesign:ColorZone>
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" Margin="0,5,0,0">
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch" Margin="0,5,0,0" >
             <ItemsControl.Template>
                 <ControlTemplate>
                     <ScrollViewer VerticalScrollBarVisibility="Visible">
@@ -91,7 +93,8 @@
                                     </Grid.ColumnDefinitions>
                                     <Button Grid.Column="0" Style="{DynamicResource MaterialDesignFlatButton}"
                                             VerticalAlignment="Center"
-                                            Command="{Binding SelectedMonth.GetLogCommand}">
+                                            Command="{Binding DataContext.GetLogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MultiView}}}"
+                                            CommandParameter="{Binding SelectedMonth}">
                                         <materialDesign:PackIcon Kind="Refresh" />
                                     </Button>
                                     <TextBox Grid.Column="1" Margin="10,0" VerticalAlignment="Center"
@@ -119,9 +122,9 @@
                                         </ComboBox>
                                     </Grid>
                                     <Button Grid.Column="4"
-                                            Style="{DynamicResource ResourceKey=MaterialDesignFlatButton}"
+                                            Style="{DynamicResource MaterialDesignFlatButton}"
                                             ToolTip="Remove User"
-                                            Command="{Binding DataContext.RemoveUserCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:LogCollectionView}}}"
+                                            Command="{Binding DataContext.RemoveUserCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MultiView}}}"
                                             CommandParameter="{Binding}">
                                         <materialDesign:PackIcon Kind="Close" />
                                     </Button>
@@ -129,14 +132,14 @@
                             </materialDesign:ColorZone>
                             <TextBox Grid.Row="1" Text="{Binding SelectedMonth.Text}" FontSize="16" TextWrapping="Wrap"
                                      IsReadOnly="True" Margin="10,0,10,5" MaxHeight="500" Background="#212121"
-                                     VerticalScrollBarVisibility="Auto"
+                                     VerticalScrollBarVisibility="Auto" TextChanged="LogTextBox_OnTextChanged"
                                      materialDesign:TextFieldAssist.DecorationVisibility="Hidden">
                                 <TextBox.Foreground>
                                     <SolidColorBrush Color="White" Opacity="0.8" />
                                 </TextBox.Foreground>
                             </TextBox>
                             <ProgressBar Grid.Row="1" Style="{DynamicResource MaterialDesignCircularProgressBar}"
-                                         Height="100" Width="100" IsIndeterminate="True"
+                                         Height="100" Width="100" IsIndeterminate="True" Margin="10"
                                          Visibility="{Binding SelectedMonth.GetLogButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
                         </Grid>
                     </Expander>

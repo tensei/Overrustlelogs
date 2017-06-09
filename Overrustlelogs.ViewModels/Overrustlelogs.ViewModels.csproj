@@ -36,6 +36,9 @@
       <HintPath>..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PropertyChanged, Version=2.1.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.2.1.1\lib\netstandard1.0\PropertyChanged.dll</HintPath>
@@ -51,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurrentState.cs" />
+    <Compile Include="Utils\CurrentState.cs" />
     <Compile Include="Factories\ApiFactory.cs" />
     <Compile Include="Interfaces\IViewModelFactory.cs" />
     <Compile Include="Interfaces\IApiFactory.cs" />
@@ -60,13 +63,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factories\ViewModelFactory.cs" />
     <Compile Include="ViewModels\ActionCommand.cs" />
-    <Compile Include="ViewModels\ChannelsViewModel.cs" />
-    <Compile Include="ViewModels\DaysViewModel.cs" />
-    <Compile Include="ViewModels\LogCollectionViewModel.cs" />
+    <Compile Include="ViewModels\Directory\ChannelsViewModel.cs" />
+    <Compile Include="ViewModels\Directory\DaysViewModel.cs" />
+    <Compile Include="ViewModels\Stalk\StalkMultiViewModel.cs" />
+    <Compile Include="ViewModels\Stalk\StalkSingleViewModel.cs" />
+    <Compile Include="ViewModels\Stalk\StalkViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MentionsViewModel.cs" />
-    <Compile Include="ViewModels\MonthsViewModel.cs" />
-    <Compile Include="ViewModels\UserlogsViewModel.cs" />
+    <Compile Include="ViewModels\Directory\MonthsViewModel.cs" />
+    <Compile Include="ViewModels\Directory\UserlogsViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

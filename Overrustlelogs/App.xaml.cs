@@ -6,6 +6,7 @@ using Overrustlelogs.Api;
 using Overrustlelogs.Api.Interfaces;
 using Overrustlelogs.ViewModels.Factories;
 using Overrustlelogs.ViewModels.Interfaces;
+using Overrustlelogs.ViewModels.Utils;
 
 namespace Overrustlelogs {
     /// <summary>
@@ -18,6 +19,7 @@ namespace Overrustlelogs {
             var container = new UnityContainer();
             _snackbarMessageQueue = new SnackbarMessageQueue();
             container.RegisterInstance<Action<string>>(SnackbarQueueMessage);
+            container.RegisterType<CurrentState>();
             container.RegisterInstance(_snackbarMessageQueue);
             container.RegisterType<IApiChannels, ApiChannels>();
             container.RegisterType<IApiMonths, ApiMonths>();

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Overrustlelogs.Views.Log_Views.SingleView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,9 +6,11 @@
              xmlns:local="clr-namespace:Overrustlelogs.Views.Log_Views"
              xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:stalk="clr-namespace:Overrustlelogs.ViewModels.ViewModels.Stalk;assembly=Overrustlelogs.ViewModels"
+             xmlns:Views="clr-namespace:Overrustlelogs.Views" x:Class="Overrustlelogs.Views.Log_Views.SingleView"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="900"
-             d:DataContext="{d:DesignInstance {x:Type viewModel:LogCollectionViewModel}, IsDesignTimeCreatable=False}">
+             d:DataContext="{d:DesignInstance {x:Type stalk:StalkSingleViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -43,9 +45,7 @@
                     </ComboBox.ItemsPanel>
                 </ComboBox>
                 <Button Grid.Column="4" Command="{Binding SubmitCommand}"
-                        Style="{DynamicResource MaterialDesignFlatButton}">
-                    Submit
-                </Button>
+                        Style="{DynamicResource MaterialDesignFlatButton}" Content="Submit"/>
                 <Grid Grid.Column="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -76,9 +76,9 @@
                     </Button>
                 </Grid>
                 <StackPanel Grid.Column="8" Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock>Single</TextBlock>
-                    <ToggleButton Margin="10,0" IsChecked="{Binding ViewIndex}" />
-                    <TextBlock>Multi</TextBlock>
+                    <TextBlock><Run Text="Single"/></TextBlock>
+                    <ToggleButton Margin="10,0" IsChecked="{Binding DataContext.ViewIndex, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Views:LogCollectionView}}}" />
+                    <TextBlock><Run Text="Multi"/></TextBlock>
                 </StackPanel>
             </Grid>
         </materialDesign:ColorZone>
@@ -93,7 +93,8 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{Binding SelectedMonth.GetLogCommand}">
+                    Command="{Binding GetLogCommand}"
+                    CommandParameter="{Binding SelectedMonth}">
                 <materialDesign:PackIcon Kind="Refresh" />
             </Button>
             <TextBox Grid.Column="1" Margin="10,0" VerticalAlignment="Center"
@@ -118,7 +119,6 @@
         </TextBox>
         <ProgressBar Grid.Row="2" Style="{DynamicResource MaterialDesignCircularProgressBar}"
                      Height="100" Width="100" IsIndeterminate="True"
-                     Visibility="{Binding SelectedMonth.GetLogButtonVisibility,
-            Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
+                     Visibility="{Binding SelectedMonth.GetLogButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
     </Grid>
 </UserControl>

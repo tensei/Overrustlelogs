@@ -7,13 +7,14 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
              xmlns:logViews="clr-namespace:Overrustlelogs.Views.Log_Views"
+             xmlns:stalk="clr-namespace:Overrustlelogs.ViewModels.ViewModels.Stalk;assembly=Overrustlelogs.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="900"
-             d:DataContext="{d:DesignInstance {x:Type viewModel:LogCollectionViewModel}, IsDesignTimeCreatable=False}">
+             d:DataContext="{d:DesignInstance {x:Type stalk:StalkViewModel}, IsDesignTimeCreatable=False}">
     <Grid>
         <materialDesign:Transitioner SelectedIndex="{Binding ViewIndex}">
-            <logViews:SingleView />
-            <logViews:MultiView />
+            <logViews:SingleView DataContext="{Binding SingleDataContext}"/>
+            <logViews:MultiView DataContext="{Binding MultiDataContext}"/>
         </materialDesign:Transitioner>
     </Grid>
 </UserControl>
