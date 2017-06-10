@@ -33,9 +33,9 @@ namespace Overrustlelogs.Api {
                 var url = $"{monthModel.Url}/userlogs/{user}.txt";
                 monthList.Add(new MessageModel(null, monthModel.Name, url, this));
             }
-            if (monthList.Count > 0) {
-                monthList[0].GetLogCommand.Execute(null);
-            }
+            //if (monthList.Count > 0) {
+            //    monthList[0];
+            //}
             return monthList;
         }
 

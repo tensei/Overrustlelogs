@@ -46,6 +46,7 @@ namespace Overrustlelogs.ViewModels.ViewModels.Stalk {
         public ICommand GetLogCommand { get; }
         public int MonthIndex { get; set; }
         public string SelectedChannel { get; set; }
+        public string SearchText { get; set; }
         public Visibility ProgressbarVisibility { get; set; } = Visibility.Collapsed;
 
 
@@ -56,6 +57,8 @@ namespace Overrustlelogs.ViewModels.ViewModels.Stalk {
                 GetLog(value).ConfigureAwait(false);
             }
         }
+
+
         private void NextMonth() {
             if (MonthLogs == null) {
                 return;
@@ -104,12 +107,26 @@ namespace Overrustlelogs.ViewModels.ViewModels.Stalk {
                     messageModel.Text = "Error try again";
                     return;
                 }
-                messageModel.Text = text;
+                if (SearchText == null) {
+                    messageModel.Text = text;
+                }
                 messageModel.UnEditedText = text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                ParseLog();
                 messageModel.GetLogButtonVisibility = false;
             });
         }
 
+        public void ParseLog() {
+            if (SearchText == null || SelectedMonth == null) {
+                return;
+            }
+            // [2017-05-20 19:04:51 UTC] xxxx: xxxx
+            var text = string.Empty;
+            foreach (var s in SelectedMonth.UnEditedText) {
+                if (s.ToLower().Contains(SearchText.ToLower())) text = text + $"{s}\n";
+            }
+            SelectedMonth.Text = text;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

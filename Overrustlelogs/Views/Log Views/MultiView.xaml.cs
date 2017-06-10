@@ -34,9 +34,10 @@ namespace Overrustlelogs.Views.Log_Views {
 
         private void Search_OnTextChanged(object sender, TextChangedEventArgs e) {
             var textbox = (TextBox) sender;
-            //BindingOperations.GetBindingExpression(textbox, TextBox.TextProperty)?.UpdateSource();
-            var datactx = (MultiViewUserModel) textbox.DataContext;
-            datactx?.SelectedMonth?.ParseLog(textbox.Text);
+            BindingOperations.GetBindingExpression(textbox, TextBox.TextProperty)?.UpdateSource();
+            var datactxtextbox = (MultiViewUserModel) textbox.DataContext;
+            var datactx = (StalkMultiViewModel) DataContext;
+            datactx.ParseLog(textbox.Text, datactxtextbox.SelectedMonth);
         }
 
         private void LogTextBox_OnTextChanged(object sender, TextChangedEventArgs e) {

@@ -5,9 +5,7 @@ namespace Overrustlelogs.Api.Interfaces {
         string Text { get; set; }
         string[] UnEditedText { get; set; }
         string Month { get; set; }
-        ICommand GetLogCommand { get; }
         bool GetLogButtonVisibility { get; set; }
-        void ParseLog(string search);
         string Url { get; }
     }
 }

@@ -42,9 +42,9 @@ namespace Overrustlelogs.Views.Log_Views {
 
         private void Search_OnTextChanged(object sender, TextChangedEventArgs e) {
             var textbox = (TextBox) sender;
-            //BindingOperations.GetBindingExpression(textbox, TextBox.TextProperty)?.UpdateSource();
+            BindingOperations.GetBindingExpression(textbox, TextBox.TextProperty)?.UpdateSource();
             var datactx = (StalkSingleViewModel) DataContext;
-            datactx?.SelectedMonth?.ParseLog(textbox.Text);
+            datactx?.ParseLog();
         }
     }
 }

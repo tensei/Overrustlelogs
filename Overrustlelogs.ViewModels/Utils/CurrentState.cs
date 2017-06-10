@@ -42,7 +42,7 @@ namespace Overrustlelogs.ViewModels.Utils {
                 Console.WriteLine(e);
             }
         }
-        public async Task<List<MultiViewUserModel>> LoadMultiViewUsers() {
+        public async Task<List<MultiViewUserModel>> LoadMultiViewUsers(Func<IMessageModel, string, Task> getLog) {
             var folder = Path.Combine(Environment.GetFolderPath(
                 Environment.SpecialFolder.LocalApplicationData), "orl");
             if (!Directory.Exists(folder)) {
@@ -58,6 +58,7 @@ namespace Overrustlelogs.ViewModels.Utils {
                 try {
                     var months = await _apiLogs.Get(multiViewUserModel.User, multiViewUserModel.Channel);
                     multiViewUserModel.Months = new ObservableCollection<IMessageModel>(months);
+                    multiViewUserModel.GetLog = getLog;
                     //multiViewUserModel.SelectedMonth = months[0];
                     await Task.Delay(50);
                 }

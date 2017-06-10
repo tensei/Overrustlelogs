@@ -23,7 +23,10 @@ namespace Overrustlelogs.ViewModels.ViewModels.Stalk {
             _currentState = currentState;
             AddUserCommand = new ActionCommand(async () => await AddUser());
             RemoveUserCommand = new ActionCommand(u => RenoveUser((MultiViewUserModel)u));
-            GetLogCommand = new ActionCommand(async l => await GetLog((MessageModel)l));
+            GetLogCommand = new ActionCommand(async l => {
+                var user = (MultiViewUserModel) l;
+                await GetLog(user.SelectedMonth, user.SearchText);
+            });
             Users = new ObservableCollection<IMultiViewUserModel>();
             LoadUsers();
             if (_currentState.Channels == null) {
@@ -54,7 +57,7 @@ namespace Overrustlelogs.ViewModels.ViewModels.Stalk {
             if (Users == null) {
                 Users = new ObservableCollection<IMultiViewUserModel>();
             }
-            Users.Add(new MultiViewUserModel(User, SelectedChannel, monthsList));
+            Users.Add(new MultiViewUserModel(User, SelectedChannel, monthsList, GetLog));
             _currentState.SaveMultiViewUsers(Users.ToList());
         }
 
@@ -64,7 +67,7 @@ namespace Overrustlelogs.ViewModels.ViewModels.Stalk {
         }
 
         private async void LoadUsers() {
-            var users = await _currentState.LoadMultiViewUsers();
+            var users = await _currentState.LoadMultiViewUsers(GetLog);
             users?.ForEach(Users.Add);
         }
         private async Task GetChannel() {
@@ -72,22 +75,35 @@ namespace Overrustlelogs.ViewModels.ViewModels.Stalk {
             ch.ForEach(c => Channels.Add(c.Name));
         }
 
-        private async Task GetLog(IMessageModel messageModel) {
-            await Task.Run(async () => {
-                if (messageModel == null) {
-                    return;
-                }
-                messageModel.Text = string.Empty;
-                messageModel.GetLogButtonVisibility = true;
-                var text = await _apiLogs.GetLogString(messageModel.Url);
-                if (text == null) {
-                    messageModel.Text = "Error try again";
-                    return;
-                }
+        private async Task GetLog(IMessageModel messageModel, string searchText) {
+            if (messageModel == null) {
+                return;
+            }
+            messageModel.Text = string.Empty;
+            messageModel.GetLogButtonVisibility = true;
+            var text = await _apiLogs.GetLogString(messageModel.Url);
+            if (text == null) {
+                messageModel.Text = "Error try again";
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(searchText)) {
                 messageModel.Text = text;
-                messageModel.UnEditedText = text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                messageModel.GetLogButtonVisibility = false;
-            });
+            }
+            messageModel.UnEditedText = text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            ParseLog(searchText, messageModel);
+            messageModel.GetLogButtonVisibility = false;
+        }
+
+        public void ParseLog(string search, IMessageModel messageModel) {
+            if (search == null || messageModel == null) {
+                return;
+            }
+            // [2017-05-20 19:04:51 UTC] xxxx: xxxx
+            var text = string.Empty;
+            foreach (var s in messageModel.UnEditedText) {
+                if (s.ToLower().Contains(search.ToLower())) text = text + $"{s}\n";
+            }
+            messageModel.Text = text;
         }
     }
 }

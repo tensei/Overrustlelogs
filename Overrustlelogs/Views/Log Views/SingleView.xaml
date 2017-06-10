@@ -7,7 +7,9 @@
              xmlns:viewModel="clr-namespace:Overrustlelogs.ViewModels.ViewModels;assembly=Overrustlelogs.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:stalk="clr-namespace:Overrustlelogs.ViewModels.ViewModels.Stalk;assembly=Overrustlelogs.ViewModels"
-             xmlns:Views="clr-namespace:Overrustlelogs.Views" x:Class="Overrustlelogs.Views.Log_Views.SingleView"
+             xmlns:Views="clr-namespace:Overrustlelogs.Views"
+             xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             x:Class="Overrustlelogs.Views.Log_Views.SingleView"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="900"
              d:DataContext="{d:DesignInstance {x:Type stalk:StalkSingleViewModel}, IsDesignTimeCreatable=False}">
@@ -98,7 +100,7 @@
                 <materialDesign:PackIcon Kind="Refresh" />
             </Button>
             <TextBox Grid.Column="1" Margin="10,0" VerticalAlignment="Center"
-                     TextChanged="Search_OnTextChanged"
+                     TextChanged="Search_OnTextChanged" Text="{Binding SearchText}"
                      materialDesign:HintAssist.Hint="Search" Width="200" />
             <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}"
                     Click="DownArrow_OnClick">
@@ -109,10 +111,10 @@
                 <materialDesign:PackIcon Kind="ArrowUp" />
             </Button>
         </Grid>
-        <TextBox x:Name="TextLog" Grid.Row="2" Text="{Binding SelectedMonth.Text}" FontSize="16" TextWrapping="Wrap"
-                 IsReadOnly="True" Padding="10,0,10,5"
-                 VerticalScrollBarVisibility="Auto"
-                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden" AutoWordSelection="True">
+        <TextBox x:Name="TextLog" Grid.Row="2"  FontSize="16"
+                 IsReadOnly="True" Padding="10,0,10,5" Text="{Binding SelectedMonth.Text}"
+                 VerticalScrollBarVisibility="Auto" MaxLines="100" ScrollViewer.CanContentScroll="True" 
+                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden" TextWrapping="Wrap" IsTabStop="False">
             <TextBox.Foreground>
                 <SolidColorBrush Color="White" Opacity="0.8" />
             </TextBox.Foreground>
