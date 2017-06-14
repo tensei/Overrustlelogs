@@ -10,6 +10,7 @@ using Overrustlelogs.ViewModels.Interfaces;
 
 namespace Overrustlelogs.ViewModels.Models {
     public class MultiViewUserModel : IMultiViewUserModel, INotifyPropertyChanged {
+        [JsonIgnore]
         public Func<IMessageModel, string, Task> GetLog;
 
         [JsonIgnore]
