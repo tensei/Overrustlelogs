@@ -30,7 +30,7 @@
             <TextBlock Margin="5,0" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right"
                        Text="{Binding UsersList.Count}" />
         </Grid>
-        <ItemsControl Grid.Row="1" x:Name="UserList" ItemsSource="{Binding UsersList}"
+        <ItemsControl Grid.Row="1" x:Name="UserList" ItemsSource="{Binding UsersList, Mode=OneWay}"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch"
                       Style="{DynamicResource ItemsControlVirtualizedStyle}">

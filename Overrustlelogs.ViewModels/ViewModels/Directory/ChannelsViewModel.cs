@@ -12,12 +12,12 @@ namespace Overrustlelogs.ViewModels.ViewModels.Directory {
         private readonly CurrentState _currentState;
 
         public ChannelsViewModel(IApiChannels channels, CurrentState currentState) {
-            RefreshChannelCommand = new ActionCommand(async () => await GetChannels());
-            SwitchToMonthCommand = new ActionCommand(c => _currentState.SwitchViewToMonth((ChannelModel) c));
             _channels = channels;
             _currentState = currentState;
+            RefreshChannelCommand = new ActionCommand(async () => await GetChannels());
+            SwitchToMonthCommand = new ActionCommand(c => _currentState.SwitchViewToMonth((ChannelModel) c));
+            ChannelList = new ObservableCollection<ChannelModel>();
             if (_currentState.Channels == null) {
-                ChannelList = new ObservableCollection<ChannelModel>();
                 GetChannels().ConfigureAwait(false);
                 return;
             }
@@ -29,15 +29,16 @@ namespace Overrustlelogs.ViewModels.ViewModels.Directory {
         public ICommand RefreshChannelCommand { get; }
 
         public ICommand SwitchToMonthCommand { get; }
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private async Task GetChannels() {
             var channels = await _channels.Get();
-            if (channels == null) {
+            if (channels == null || channels.Count <= 0) {
                 return;
             }
-            ChannelList = new ObservableCollection<ChannelModel>(channels);
+            ChannelList.Clear();
+            channels.ForEach(ChannelList.Add);
             _currentState.Channels = channels;
         }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -32,7 +32,7 @@
                      VerticalAlignment="Center" />
         </Grid>
 
-        <ItemsControl Grid.Row="1" x:Name="DayList" ItemsSource="{Binding DaysList}"
+        <ItemsControl Grid.Row="1" x:Name="DayList" ItemsSource="{Binding DaysList, Mode=OneWay}"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch">
             <ItemsControl.Template>

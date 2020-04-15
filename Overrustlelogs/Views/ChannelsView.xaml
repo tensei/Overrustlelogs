@@ -31,7 +31,7 @@
             <TextBlock Margin="5,0" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right"
                        Text="{Binding ChannelList.Count}" />
         </Grid>
-        <ItemsControl Grid.Row="1" x:Name="ChannelList" ItemsSource="{Binding ChannelList}"
+        <ItemsControl Grid.Row="1" x:Name="ChannelList" ItemsSource="{Binding ChannelList, Mode=OneWay}"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch">
             <ItemsControl.Template>
@@ -55,7 +55,7 @@
                     </DataTemplate.Triggers>
                     <DockPanel>
                         <Button Style="{DynamicResource MaterialDesignFlatButton}"
-                                Command="{Binding DataContext.SwitchToMonthCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ChannelsView}}}"
+                                Command="{Binding DataContext.SwitchToMonthCommand, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ChannelsView}}}"
                                 CommandParameter="{Binding}" DockPanel.Dock="Top"
                                 Padding="10,0" Height="37" HorizontalContentAlignment="Stretch">
                             <Grid VerticalAlignment="Center">

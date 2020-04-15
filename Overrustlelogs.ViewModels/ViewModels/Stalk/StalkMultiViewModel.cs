@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using Overrustlelogs.ViewModels.Models;
 using Overrustlelogs.ViewModels.Utils;
 
 namespace Overrustlelogs.ViewModels.ViewModels.Stalk {
-    public class StalkMultiViewModel {
+    public class StalkMultiViewModel : INotifyPropertyChanged{
         private readonly IApiLogs _apiLogs;
         private readonly IApiChannels _apiChannels;
         private readonly CurrentState _currentState;
@@ -105,5 +106,7 @@ namespace Overrustlelogs.ViewModels.ViewModels.Stalk {
             }
             messageModel.Text = text;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

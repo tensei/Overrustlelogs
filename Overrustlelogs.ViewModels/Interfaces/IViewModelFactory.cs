@@ -4,16 +4,17 @@ using Overrustlelogs.ViewModels.ViewModels.Directory;
 using Overrustlelogs.ViewModels.ViewModels.Stalk;
 
 namespace Overrustlelogs.ViewModels.Interfaces {
-    public interface IViewModelFactory {
-        ChannelsViewModel CreateChannelsViewModel { get; }
-        MainWindowViewModel CreateMainWindowViewModel { get; }
+    public interface IViewModelFactory
+    {
+        ChannelsViewModel ChannelsViewModel { get; }
+        MainWindowViewModel MainWindowViewModel { get; }
 
-        DaysViewModel CreateDaysViewModel(Action<string, string> changeTitle);
+        DaysViewModel CreateDaysViewModel();
         StalkViewModel CreateStalkViewModel();
         StalkMultiViewModel CreateStalkMultiViewModel();
         StalkSingleViewModel CreateStalkSingleViewModel();
         MentionsViewModel CreateMentionsViewModel();
-        MonthsViewModel CreateMonthsViewModel(Action<string, string> changeTitle);
-        UserlogsViewModel CreateUserlogsViewModel(Action<string, string> changeTitle);
+        MonthsViewModel CreateMonthsViewModel();
+        UserlogsViewModel CreateUserlogsViewModel();
     }
 }

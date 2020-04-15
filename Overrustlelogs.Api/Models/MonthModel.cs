@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Overrustlelogs.Api.Interfaces;
 
@@ -15,8 +16,8 @@ namespace Overrustlelogs.Api.Models {
         public string ApiUrl { get; set; }
         public bool Visibility { get; set; } = true;
 
-        public ObservableCollection<IDayModel> Days { get; set; }
-        public ObservableCollection<IUserModel> Users { get; set; }
+        public List<IDayModel> Days { get; set; }
+        public List<IUserModel> Users { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

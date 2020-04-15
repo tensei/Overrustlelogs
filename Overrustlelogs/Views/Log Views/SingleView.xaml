@@ -111,10 +111,20 @@
                 <materialDesign:PackIcon Kind="ArrowUp" />
             </Button>
         </Grid>
-        <TextBox x:Name="TextLog" Grid.Row="2"  FontSize="16"
-                 IsReadOnly="True" Padding="10,0,10,5" Text="{Binding SelectedMonth.Text}"
-                 VerticalScrollBarVisibility="Auto" MaxLines="100" ScrollViewer.CanContentScroll="True" 
-                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden" TextWrapping="Wrap" IsTabStop="False">
+        <TextBox x:Name="TextLog"
+                 Grid.Row="2" 
+                 FontSize="16"
+                 IsReadOnly="True"
+                 Text="{Binding SelectedMonth.Text}"
+                 VerticalScrollBarVisibility="Auto" 
+                 MaxLines="100" ScrollViewer.CanContentScroll="True" 
+                 TextAlignment="Left"
+                 materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                 materialDesign:TextFieldAssist.TextBoxViewMargin="5"
+                 BorderBrush="Transparent"
+                 SelectionBrush="DarkOrange"
+                 TextWrapping="Wrap" 
+                 IsTabStop="False">
             <TextBox.Foreground>
                 <SolidColorBrush Color="White" Opacity="0.8" />
             </TextBox.Foreground>

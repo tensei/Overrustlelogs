@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -14,14 +15,14 @@ namespace Overrustlelogs.ViewModels.ViewModels.Directory {
         private readonly CurrentState _currentState;
 
 
-        public DaysViewModel(Action<string, string> changeTitle, IApiDays apiDays, CurrentState currentState) {
+        public DaysViewModel(IApiDays apiDays, CurrentState currentState) {
             RefreshDaysCommand = new ActionCommand(async () => await GetDays());
             OpenDayCommand = new ActionCommand(d => OpenLog((DayModel) d));
             _apiDays = apiDays;
             _currentState = currentState;
-            changeTitle(_currentState.Channel.Name, _currentState.Month.Name);
+            DaysList = new ObservableCollection<IDayModel>();
             if (_currentState.Month.Days != null) {
-                DaysList = _currentState.Month.Days;
+                _currentState.Month.Days.ForEach(DaysList.Add);
                 return;
             }
             GetDays().ConfigureAwait(false);
@@ -38,8 +39,9 @@ namespace Overrustlelogs.ViewModels.ViewModels.Directory {
             if (days == null) {
                 return;
             }
-            _currentState.Month.Days = new ObservableCollection<IDayModel>(days);
-            DaysList = _currentState.Month.Days;
+            _currentState.Month.Days = new List<IDayModel>(days);
+            DaysList.Clear();
+            days.ForEach(DaysList.Add);
         }
 
         private void OpenLog(IDayModel day) {

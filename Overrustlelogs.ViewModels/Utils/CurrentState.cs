@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -10,7 +11,7 @@ using Overrustlelogs.ViewModels.Interfaces;
 using Overrustlelogs.ViewModels.Models;
 
 namespace Overrustlelogs.ViewModels.Utils {
-    public class CurrentState {
+    public class CurrentState : INotifyPropertyChanged {
         private readonly IApiLogs _apiLogs;
         private readonly Action<string> _snackbarMessageQueue;
 
@@ -69,5 +70,7 @@ namespace Overrustlelogs.ViewModels.Utils {
             }
             return json;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

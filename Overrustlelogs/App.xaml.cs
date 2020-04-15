@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows;
 using MaterialDesignThemes.Wpf;
-using Microsoft.Practices.Unity;
 using Overrustlelogs.Api;
 using Overrustlelogs.Api.Interfaces;
 using Overrustlelogs.ViewModels.Factories;
 using Overrustlelogs.ViewModels.Interfaces;
 using Overrustlelogs.ViewModels.Utils;
+using Unity;
 
 namespace Overrustlelogs {
     /// <summary>

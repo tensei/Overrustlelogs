@@ -40,7 +40,7 @@
             </Button>
             <Button Click="Donate_OnClick">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconFontAwesome VerticalAlignment="Center" Kind="Paypal" />
+                    <iconPacks:PackIconFontAwesome VerticalAlignment="Center" Kind="PaypalBrands" />
                     <TextBlock>Donate</TextBlock>
                 </StackPanel>
             </Button>
@@ -94,13 +94,13 @@
                     </Button>
                 </Grid>
             </materialDesign:ColorZone>
-            <materialDesign:Transitioner Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding ViewIndex}">
-                <views:ChannelsView DataContext="{Binding ChannelsDataContext}" />
-                <views:MonthsView DataContext="{Binding MonthsDataContext}" />
-                <views:DaysView DataContext="{Binding DaysDataContext}" />
-                <views:UserlogsView DataContext="{Binding UserlogsDataContext}" />
-                <views:LogCollectionView DataContext="{Binding LogsDataContext}" />
-                <views:MentionsView DataContext="{Binding MentionsDataContext}" />
+            <materialDesign:Transitioner Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding ViewIndex, Mode=OneWay}">
+                <views:ChannelsView DataContext="{Binding ChannelsDataContext, Mode=OneWay}" />
+                <views:MonthsView DataContext="{Binding MonthsDataContext, Mode=OneWay}" />
+                <views:DaysView DataContext="{Binding DaysDataContext, Mode=OneWay}" />
+                <views:UserlogsView DataContext="{Binding UserlogsDataContext, Mode=OneWay}" />
+                <views:LogCollectionView DataContext="{Binding LogsDataContext, Mode=OneWay}" />
+                <views:MentionsView DataContext="{Binding MentionsDataContext, Mode=OneWay}" />
             </materialDesign:Transitioner>
             <materialDesign:Snackbar x:Name="SnackbarMessage" Grid.Row="1" Grid.Column="1"
                                      HorizontalAlignment="Right" Background="#FFC33E00" Foreground="White" />

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
-using Overrustlelogs.ViewModels.Factories;
+using Overrustlelogs.ViewModels.Interfaces;
 using Overrustlelogs.ViewModels.ViewModels;
 
 namespace Overrustlelogs {
@@ -12,9 +12,9 @@ namespace Overrustlelogs {
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow {
-        public MainWindow(ViewModelFactory viewModelFactory, SnackbarMessageQueue snackbarMessageQueue) {
+        public MainWindow(IViewModelFactory viewModelFactory, SnackbarMessageQueue snackbarMessageQueue) {
             InitializeComponent();
-            DataContext = viewModelFactory.CreateMainWindowViewModel;
+            DataContext = viewModelFactory.MainWindowViewModel;
             SnackbarMessage.MessageQueue = snackbarMessageQueue;
         }
 

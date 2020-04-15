@@ -31,7 +31,7 @@
                      TextChanged="Filter_OnTextChanged"
                      VerticalAlignment="Center" />
         </Grid>
-        <ItemsControl Grid.Row="1" x:Name="MonthList" ItemsSource="{Binding MonthsList}"
+        <ItemsControl Grid.Row="1" x:Name="MonthList" ItemsSource="{Binding MonthsList, Mode=OneWay}"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch">
             <ItemsControl.Template>

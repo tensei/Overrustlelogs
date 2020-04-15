@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -15,14 +16,14 @@ namespace Overrustlelogs.ViewModels.ViewModels.Directory {
         private readonly CurrentState _currentState;
 
 
-        public UserlogsViewModel(Action<string, string> changeTitle, IApiUserlogs apiUserlogs, CurrentState currentState) {
+        public UserlogsViewModel(IApiUserlogs apiUserlogs, CurrentState currentState) {
             _apiUserlogs = apiUserlogs;
             _currentState = currentState;
             RefreshUsersCommand = new ActionCommand(async () => await GetUsers());
             OpenUserlogCommand = new ActionCommand(u => OpenLog((UserModel) u));
-            changeTitle(_currentState.Channel.Name, _currentState.Month.Name + "/userlogs");
+            UsersList = new ObservableCollection<IUserModel>();
             if (_currentState.Month.Users != null) {
-                UsersList = _currentState.Month.Users;
+                _currentState.Month.Users.ForEach(UsersList.Add);
                 return;
             }
             GetUsers().ConfigureAwait(false);
@@ -30,7 +31,7 @@ namespace Overrustlelogs.ViewModels.ViewModels.Directory {
 
         public ICommand RefreshUsersCommand { get; }
         public ObservableCollection<IUserModel> UsersList { get; set; }
-        private ObservableCollection<IUserModel> _usersList { get; set; }
+        private List<IUserModel> _usersList { get; set; }
         
         public ICommand OpenUserlogCommand { get; }
         public string FilterText { get; set; }
@@ -41,9 +42,9 @@ namespace Overrustlelogs.ViewModels.ViewModels.Directory {
             if (users == null) {
                 return;
             }
-            _currentState.Month.Users = new ObservableCollection<IUserModel>(users);
+            _currentState.Month.Users = new List<IUserModel>(users);
             _usersList = _currentState.Month.Users;
-            UsersList = _currentState.Month.Users;
+            users.ForEach(UsersList.Add);
         }
 
         private void OpenLog(IUserModel user) {
@@ -56,8 +57,9 @@ namespace Overrustlelogs.ViewModels.ViewModels.Directory {
         }
 
         public void Filter() {
-            var filtered = _usersList.Where(u => u.Name.ToLower().Contains(FilterText.ToLower()));
-            UsersList = new ObservableCollection<IUserModel>(filtered);
+            var filtered = _usersList.Where(u => u.Name.ToLower().Contains(FilterText.ToLower())).ToList();
+            UsersList.Clear();
+            filtered.ForEach(UsersList.Add);
         }
     }
 }

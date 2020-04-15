@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Overrustlelogs.Api.Interfaces {
     public interface IMonthModel {
@@ -6,7 +7,7 @@ namespace Overrustlelogs.Api.Interfaces {
         string Url { get; set; }
         string ApiUrl { get; set; }
         bool Visibility { get; set; }
-        ObservableCollection<IDayModel> Days { get; set; }
-        ObservableCollection<IUserModel> Users { get; set; }
+        List<IDayModel> Days { get; set; }
+        List<IUserModel> Users { get; set; }
     }
 }

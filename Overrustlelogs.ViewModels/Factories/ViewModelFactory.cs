@@ -11,21 +11,23 @@ namespace Overrustlelogs.ViewModels.Factories {
         private readonly Action<string> _snackbarMessageQueue;
         private readonly CurrentState _currentState;
 
-        public ViewModelFactory(IApiFactory apiFactory, Action<string> snackbarMessageQueue, CurrentState currentState) {
+        public ViewModelFactory(IApiFactory apiFactory,
+            Action<string> snackbarMessageQueue,
+            CurrentState currentState) {
             _apiFactory = apiFactory;
             _snackbarMessageQueue = snackbarMessageQueue;
             _currentState = currentState;
         }
 
-        public MainWindowViewModel CreateMainWindowViewModel => new MainWindowViewModel(this, _snackbarMessageQueue, _currentState);
-        public ChannelsViewModel CreateChannelsViewModel => new ChannelsViewModel(_apiFactory.GetApiChannels(), _currentState);
+        public MainWindowViewModel MainWindowViewModel => new MainWindowViewModel(this, _snackbarMessageQueue, _currentState);
+        public ChannelsViewModel ChannelsViewModel => new ChannelsViewModel(_apiFactory.GetApiChannels(), _currentState);
 
-        public MonthsViewModel CreateMonthsViewModel(Action<string, string> changeTitle) {
-            return new MonthsViewModel(_apiFactory.GetApiMonths(), changeTitle, _currentState);
+        public MonthsViewModel CreateMonthsViewModel() {
+            return new MonthsViewModel(_apiFactory.GetApiMonths(), _currentState);
         }
 
-        public DaysViewModel CreateDaysViewModel(Action<string, string> changeTitle) {
-            return new DaysViewModel(changeTitle, _apiFactory.GetApiDayss(), _currentState);
+        public DaysViewModel CreateDaysViewModel() {
+            return new DaysViewModel(_apiFactory.GetApiDayss(), _currentState);
         }
 
         public StalkViewModel CreateStalkViewModel() {
@@ -38,8 +40,8 @@ namespace Overrustlelogs.ViewModels.Factories {
             return new StalkMultiViewModel(_apiFactory.GetApiLogss(), _apiFactory.GetApiChannels() , _currentState);
         }
 
-        public UserlogsViewModel CreateUserlogsViewModel(Action<string, string> changeTitle) {
-            return new UserlogsViewModel(changeTitle, _apiFactory.GetApiUserlogs(), _currentState);
+        public UserlogsViewModel CreateUserlogsViewModel() {
+            return new UserlogsViewModel(_apiFactory.GetApiUserlogs(), _currentState);
         }
 
         public MentionsViewModel CreateMentionsViewModel() {

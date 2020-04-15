@@ -82,7 +82,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <materialDesign:ColorZone Background="#282828" Padding="4">
+                            <materialDesign:ColorZone x:Name="Zone" Background="#282828" Padding="4">
                                 <Grid Margin="0,0,0,4">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -130,10 +130,23 @@
                                     </Button>
                                 </Grid>
                             </materialDesign:ColorZone>
-                            <TextBox Grid.Row="1" Text="{Binding SelectedMonth.Text}" FontSize="16" TextWrapping="Wrap"
-                                     IsReadOnly="True" Margin="10,0,10,5" MaxHeight="500" Background="#212121" MaxLines="26"
-                                     ScrollViewer.CanContentScroll="True" IsTabStop="False"
-                                     VerticalScrollBarVisibility="Auto" TextChanged="LogTextBox_OnTextChanged" >
+                            <TextBox Grid.Row="1"
+                                     Text="{Binding SelectedMonth.Text}"
+                                     TextAlignment="Left"
+                                     FontSize="16"
+                                     TextWrapping="Wrap"
+                                     IsReadOnly="True"
+                                     MaxHeight="500" 
+                                     Background="#212121"
+                                     MaxLines="26"
+                                     ScrollViewer.CanContentScroll="True" 
+                                     materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="5"
+                                     BorderBrush="Transparent"
+                                     IsTabStop="False"
+                                     SelectionBrush="DarkOrange"
+                                     VerticalScrollBarVisibility="Auto" 
+                                     TextChanged="LogTextBox_OnTextChanged" >
                                 <TextBox.Foreground>
                                     <SolidColorBrush Color="White" Opacity="0.8" />
                                 </TextBox.Foreground>
